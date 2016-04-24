@@ -1,0 +1,4 @@
+annotation/gencode17.bed filter=lfs diff=lfs merge=lfs -text
+annotation/gencode17_symbols.bed filter=lfs diff=lfs merge=lfs -text
+annotation/hg18_hg19_1kb_tiles.bed filter=lfs diff=lfs merge=lfs -text
+annotation/hg18_hg19_1kb_tiles_nochr.bed filter=lfs diff=lfs merge=lfs -text
