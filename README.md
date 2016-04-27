@@ -36,12 +36,16 @@ Recommended for visualizing the results:
 
 # 3. INSTALLATION
 
-1) Download the files.
+1) Download the files. Example data can be found at:
+    - Annotation files: https://transfer.sh/8EZ7g/annotation.zip 
+    - Gene expression and copy number data: https://transfer.sh/nS0Qw/example-data.zip
+
+To download the above files via the command line, use for instance (on Linux/Mac):
+```curl https://transfer.sh/8EZ7g/annotation.zip -o annotation.zip```
 
 2) Add execution permissions to the shell scripts by entering the directory and typing ```chmod +x *.sh```. (On Unix/Linux).
 
 3) Either run the program from the same directory, or add the directory to the path (```export /path/to/FocalScan``` (Unix/Linux) or ```addpath(genpath('path/to/FocalScan'))``` (from within MATLAB)).
-
 
 # 4. INPUT FILES
 
