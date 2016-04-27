@@ -37,8 +37,8 @@ Recommended for visualizing the results:
 # 3. INSTALLATION
 
 1) Download the files. Example data can be found at:
-    - Annotation files: https://transfer.sh/8EZ7g/annotation.zip 
-    - Gene expression and copy number data: https://transfer.sh/nS0Qw/example-data.zip
+- Annotation files: https://transfer.sh/8EZ7g/annotation.zip 
+- Gene expression and copy number data: https://transfer.sh/nS0Qw/example-data.zip
 
 To download the above files via the command line, use for instance (on Linux/Mac):
 ```curl https://transfer.sh/8EZ7g/annotation.zip -o annotation.zip```
