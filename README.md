@@ -1,4 +1,4 @@
-# FOCALSCAN: FINDING ALTERED GENES IN CANCER BASED ON COORDINATED DNA & RNA CHANGE
+# About
 
 FocalScan identifies genomic regions where many tumors show simultaneous in- creases in DNA copy-number amplitude (CNA) and RNA expression (or conversely for DNA deletions). Empirically, many important oncogenes show this pattern of alteration. The FocalScan score is based on the dot product of CNA and RNA changes. This puts equal weight to the two variables, but requires coordinated changes in both to achieve a positive score.
 
