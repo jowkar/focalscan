@@ -15,7 +15,7 @@ FocalScan computes two basic statistics: One is calculated as described above. T
 Importantly, FocalScan can also be run in a “non gene-centric” fashion: The genome is scanned at high (500 nt) resolution by dividing chromosomes into small (1000 nt) overlapping tiles. As such, it does not care about preconceptions about gene locations. RNA-seq data is used to quantify transcription and scores are computed for each tile. This makes FocalScan suitable for identifying e.g. novel non-coding RNAs that are altered in tumors.
 
 
-# SYSTEM REQUIREMENTS
+# System requirements
 
 Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM preferred for tile-based analysis. The included shell scripts (.sh) are not supported on Windows (only usage from within MATLAB possible).
 
@@ -34,7 +34,7 @@ Recommended for visualizing the results:
 - IGV (https://www.broadinstitute.org/igv/)
 
 
-# 1. INSTALLATION
+# 1. Installation
 
 1) Download the files. Example data can be found at:
 - Annotation files: https://transfer.sh/8EZ7g/annotation.zip 
@@ -47,7 +47,7 @@ To download the above files via the command line, use for instance (on Linux/Mac
 
 3) Either run the program from the same directory, or add the directory to the path (```export /path/to/FocalScan``` (Unix/Linux) or ```addpath(genpath('path/to/FocalScan'))``` (from within MATLAB)).
 
-# 2. INPUT FILES
+# 2. Input files
 
 RNA-seq data should be provided as read counts per gene/tile. Gene-level read counts can be obtained with HTSeq (or equivalent) and tile-level counts with coverageBed (for instance using the included script "quantify_tiles.sh").
 
@@ -81,7 +81,7 @@ NOTE:
 - Likely, germline variants need to be filtered out from the copy number data beforehand.
 
 
-# 3. RUNNING FOCALSCAN
+# 3. Running FocalScan
 
 
 ## 1) Pre-process the data:
@@ -182,7 +182,3 @@ Example:
 Or the MATLAB function:
 
 ```standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,out_file)```
-
-
-
-
