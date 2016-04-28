@@ -1,4 +1,4 @@
-# 1. FOCALSCAN: FINDING ALTERED GENES IN CANCER BASED ON COORDINATED DNA & RNA CHANGE
+# FOCALSCAN: FINDING ALTERED GENES IN CANCER BASED ON COORDINATED DNA & RNA CHANGE
 
 FocalScan identifies genomic regions where many tumors show simultaneous in- creases in DNA copy-number amplitude (CNA) and RNA expression (or conversely for DNA deletions). Empirically, many important oncogenes show this pattern of alteration. The FocalScan score is based on the dot product of CNA and RNA changes. This puts equal weight to the two variables, but requires coordinated changes in both to achieve a positive score.
 
@@ -15,7 +15,7 @@ FocalScan computes two basic statistics: One is calculated as described above. T
 Importantly, FocalScan can also be run in a “non gene-centric” fashion: The genome is scanned at high (500 nt) resolution by dividing chromosomes into small (1000 nt) overlapping tiles. As such, it does not care about preconceptions about gene locations. RNA-seq data is used to quantify transcription and scores are computed for each tile. This makes FocalScan suitable for identifying e.g. novel non-coding RNAs that are altered in tumors.
 
 
-# 2. SYSTEM REQUIREMENTS
+# SYSTEM REQUIREMENTS
 
 Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM preferred for tile-based analysis. The included shell scripts (.sh) are not supported on Windows (only usage from within MATLAB possible).
 
@@ -34,7 +34,7 @@ Recommended for visualizing the results:
 - IGV (https://www.broadinstitute.org/igv/)
 
 
-# 3. INSTALLATION
+# 1. INSTALLATION
 
 1) Download the files. Example data can be found at:
 - Annotation files: https://transfer.sh/8EZ7g/annotation.zip 
@@ -47,7 +47,7 @@ To download the above files via the command line, use for instance (on Linux/Mac
 
 3) Either run the program from the same directory, or add the directory to the path (```export /path/to/FocalScan``` (Unix/Linux) or ```addpath(genpath('path/to/FocalScan'))``` (from within MATLAB)).
 
-# 4. INPUT FILES
+# 2. INPUT FILES
 
 RNA-seq data should be provided as read counts per gene/tile. Gene-level read counts can be obtained with HTSeq (or equivalent) and tile-level counts with coverageBed (for instance using the included script "quantify_tiles.sh").
 
@@ -81,7 +81,7 @@ NOTE:
 - Likely, germline variants need to be filtered out from the copy number data beforehand.
 
 
-# 5. RUNNING FOCALSCAN
+# 3. RUNNING FOCALSCAN
 
 
 ## 1) Pre-process the data:
@@ -97,7 +97,7 @@ Tile-level analysis:
 ./quantify_tiles.sh <BAM_file> annotation/hg18_hg19_1kb_tiles.bed
 ```
 This needs to be done for each .bam file, preferably in parallell to speed up processing.
-A file with RNA-seq read counts (*.tile_counts) for each genomic tile will be generated.
+A file with RNA-seq read counts (\*.tile_counts) for each genomic tile will be generated.
 
 NOTE: Your .bam files may use chromosome names formatted as e.g. 'chr1' or simply '1'. In
 the latter case, instead use the hg18_hg19_1kb_tiles_nochr.bed file.
