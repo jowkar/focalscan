@@ -65,7 +65,10 @@ classdef Expr < handle
                                 disp(filename)
                                 expr_this = textscan(fid, '%d%d', 'delimiter', '\t'); %%{1} is tile_id and {2} is expression
                             end
-                            [~,idx1,idx2] = intersect(annot.id, expr_this{1});
+                            [isect,idx1,idx2] = intersect(annot.id, expr_this{1});
+                            if isempty(isect)
+                                error('No gene identifiers matched the annotation. Please check that an appropriate genome annotation file has been provided.')
+                            end
                             idx3 = strcmp(expr.sample_id, s.sample_id{i});
                             expr.data(idx1, idx3) = expr.data(idx1, idx3) + single(expr_this{2}(idx2));
                             fclose(fid);
@@ -183,6 +186,7 @@ classdef Expr < handle
                         norm_fact = sort(data(:, i), 'descend');
                         norm_fact = median(norm_fact(1:ceil(end/div)));
                         if norm_fact == 0
+                            warning('All genes in sample %d have 0 reads',i)
                             data(:, i) = 0;
                         else
                             data(:, i) = data(:, i)/norm_fact;
@@ -193,7 +197,7 @@ classdef Expr < handle
                 case 'library_size'
                     norm_fact = sum(data);
                     norm_fact = repmat(norm_fact,size(data,1),1);
-                    data = data./norm_fact;
+                    data = (data./norm_fact).*10^6;
                 otherwise
                     error('Unrecognized normalization option: %s',mode)
             end

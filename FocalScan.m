@@ -21,7 +21,7 @@ classdef FocalScan
     %             'neutral_thresh'              0.1             numeric
     %             'min_neutral'                 20              numeric
     %             'pseudo_expr'                 ''              numeric
-    %             'pseudo_expr_relative         10               numeric
+    %             'pseudo_expr_relative         10              numeric
     %             'max_nan'                     0.1             numeric
     %             'reportdir'                   '.'             string
     %             'normalization'               'percentile'    string
@@ -358,7 +358,7 @@ classdef FocalScan
             obj.cna.sample_id = obj.cna.sample_id(idx1);
             obj.cna.data = obj.cna.data(idx1,:);
             obj.expr.sample_id = obj.expr.sample_id(idx2);
-            obj.expr.data = obj.expr.data(idx2,:);           
+            obj.expr.data = obj.expr.data(idx2,:);
             
             if ~strcmp(obj.datasource.seg_file,'')
                 % remove unnecesary samples from seg
@@ -403,6 +403,7 @@ classdef FocalScan
             end
             
             if obj.params.pseudo_expr == 0
+                %disp('Setting pseudo_expr')
                 obj.params.pseudo_expr = median(obj.expr.data(obj.expr.data>0))*obj.params.pseudo_expr_relative;
             end
             
