@@ -21,4 +21,4 @@ do
     fi
     ((i++))
 done
-echo $argstring
+echo "$argstring"

@@ -7,16 +7,16 @@
 # source ~/.bash_profile
 
 
-bam_name=`echo "$1" | awk -F".bam" '{print $1}'`
+bam_name=$(echo "$1" | awk -F".bam" '{print $1}')
 
 if [ -z "$2" ]
 then 
-    annot=$2
+    annot="$2"
 else
     annot=./annotation/hg18_hg19_1kb_tiles.bed
 fi
 
-echo begin processing $1
+echo begin processing "$1"
 # Quantify tiles
-(coverageBed -split -counts -abam $1 -b $annot | cut -f4,5 > $bam_name.tile_counts) >& $bam_name.bedtools_log
-echo $1: tiles quantified
+(coverageBed -split -counts -abam "$1" -b $annot | cut -f4,5 > "$bam_name".tile_counts) >& "$bam_name".bedtools_log
+echo "$1": tiles quantified

@@ -7,21 +7,20 @@
 
 
 # Find installation directory
-install_dir=`echo $PATH | tr : '\n' | grep focalscan`
+install_dir=$(echo "$PATH" | tr : '\n' | grep focalscan)
 if [ -z "$install_dir" ]
 then
-    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files"
-    main_file=`ls | grep FocalScan.m`
-    echo $main_file
-    if [ -z "$main_file" ]
+    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files..."
+    if [ -f "./FocalScan.m" ];
     then
+        echo "Main file found. Temporarily adding current directory to PATH"
+        export PATH="$PATH":"$(pwd)"
+    else
         echo "The necessary files were not found in the current directory. Please manually add the directory countaining the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
         exit $?
-    else
-        echo "Main file found. Adding current directory to PATH"
-        export PATH=$PATH:`pwd`
     fi
-    install_dir=`echo $PATH | tr : '\n' | grep focalscan`
+
+    install_dir=$(echo "$PATH" | tr : '\n' | grep focalscan)
     if [ -z "$install_dir" ]
     then
         echo "Failed adding current directory to PATH, for unknown reasons"
@@ -29,9 +28,9 @@ then
     fi
 fi
 
-current_dir=`pwd`
+current_dir=$(pwd)
 
-argstring=`$install_dir/build_argstring.sh $@`
+argstring=$("$install_dir"/build_argstring.sh "$@")
 #argstring="$argstring,'current_dir','$current_dir'"
 
 #matlab -nodesktop -nosplash -r "FocalScan($argstring);exit"

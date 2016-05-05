@@ -100,7 +100,13 @@ classdef Annot < handle
                     obj.stop = temp_stop;
                     obj.id = temp_id';
                 elseif regexp(in,'\.bed')
+                    if exist(in, 'file') ~= 2
+                        error('File %s not found',in)
+                    end
                     fid = fopen(in,'r');
+                    if fid < 0
+                        error('Could not open file %s',in)
+                    end
                     line = fgetl(fid);
                     fclose(fid);
                     isStrCol = isnan( str2double( regexp( line, '[^\t\s]+', 'match' )));
