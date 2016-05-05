@@ -4,7 +4,7 @@
 install_dir=$(echo "$PATH" | tr : '\n' | grep focalscan)
 if [ -z "$install_dir" ]
 then
-    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files"
+    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files..."
     if [ -f "./FocalScan.m" ];
     then
         echo "Main file found. Temporarily adding current directory to PATH"
@@ -45,7 +45,7 @@ then
                 $(tput smul)spearman_corr:$(tput rmul) spearman correlation coefficient)
         $(tput bold)out_file:$(tput sgr0) name of output file (ie. peaks.txt)"
     echo
-    echo "$(tput bold)EXAMPLE$(tput sgr0)
+    echo "$(tput bold)EXAMPLE:$(tput sgr0)
     standalone_peakdetection.sh report.txt annotation/gencode17.bed 0.7 fs_hp ./peaks.txt"
     echo
 else
