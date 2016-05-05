@@ -616,27 +616,34 @@ classdef FocalScan
                 t2.Score = abs(t2.Score);
             end
             
-            if length(unique(t1.Id)) < length(t1.Id)
-                warning('Duplicate entries detected in annotation. Ignoring these.');
-                [id,~,numeric_id] = unique(t1.Id);
-                counts=FocalScan.count_occurrences(numeric_id);
-                counts.Id = id;
-                idx1 = ismember(t1.Id,counts.Id(counts.Count>1));
-                idx2 = ismember(t2.Id,counts.Id(counts.Count>1));
-                t1 = t1(~idx1,:);
-                t2 = t2(~idx2,:);
+            % handle rows without IDs in the report file (if annotated with gene Ids)
+            if all(isnumeric(t2.Id)) && all(isnumeric(t1.Id))
+                if isempty(intersect(t2.Id,t1.Id))
+                    error('None of the gene annotation IDs match those in the report file.')
+                end
+            elseif all(isnumeric(t2.Id)) & ~all(isnumeric(t1.Id))
+                error('The IDs in the annotation file do not match those in the report file.')
+            elseif all(iscellstr(t2.Id)) && all(iscellstr(t1.Id))
+                if isempty(intersect(t2.Id,t1.Id))
+                    error('None of the gene annotation IDs match those in the report file.')
+                end
+                if length(unique(t1.Id)) < length(t1.Id)
+                    warning('Duplicate entries detected in annotation. Ignoring these.');
+                    [id,~,numeric_id] = unique(t1.Id);
+                    counts=FocalScan.count_occurrences(numeric_id);
+                    counts.Id = id;
+                    idx1 = ismember(t1.Id,counts.Id(counts.Count>1));
+                    idx2 = ismember(t2.Id,counts.Id(counts.Count>1));
+                    t1 = t1(~idx1,:);
+                    t2 = t2(~idx2,:);
+                end
+                iidx = cellfun(@(x) isempty(x), t2.Id);
+                t2 = t2(~iidx,:);
+                idx = ismember(t2.Id,t1.Id);
+                t2 = t2(idx,:);
+                idx = ismember(t1.Id,t2.Id);
+                t1 = t1(idx,:);
             end
-            
-            if isempty(intersect(t2.Id,t1.Id))
-                error('None of the gene annotation Ids match those in the report file')
-            end
-            
-            iidx = cellfun(@(x) isempty(x), t2.Id);
-            t2 = t2(~iidx,:);
-            idx = ismember(t2.Id,t1.Id);
-            t2 = t2(idx,:);
-            idx = ismember(t1.Id,t2.Id);
-            t1 = t1(idx,:);
             
             T = join(t2,t1);
             T = table(T.Id,T.Score,T.Sum_CNA_HP,T.Chr,T.Start,T.Stop);
