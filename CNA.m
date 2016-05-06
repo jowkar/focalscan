@@ -63,8 +63,8 @@ classdef CNA < handle
             p = inputParser;
             
             % "raw" data input
-            p.addParameter('seg','',@(x) strcmp(class(x),'Seg'));
-            p.addParameter('annot','',@(x) strcmp(class(x),'Annot'));
+            p.addParameter('seg','',@(x) isa(x,'Seg'));
+            p.addParameter('annot','',@(x) isa(x,'Annot'));
             
             % csv-formatted data input
             p.addParameter('cna_csv', '',@isstr);

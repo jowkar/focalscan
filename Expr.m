@@ -106,7 +106,7 @@ classdef Expr < handle
         function obj = handle_input(obj,varargin)
             p = inputParser;
             
-            p.addParameter('annot','', @(x) strcmp(class(x),'Annot'));
+            p.addParameter('annot','', @(x) isa(x,'Annot'));
             
             % raw data input
             p.addParameter('expr_path', '', @isstr);
@@ -173,7 +173,7 @@ classdef Expr < handle
                 transpose = 1;
                 %error('Either the data matrix is transposed the wrong way, or fewer genes than samples are included')
             end
-            disp(sprintf('Performing %s normalization',mode))
+            fprintf('Performing %s normalization\n',mode)
             switch mode
                 case 'percentile'
                     if nargin >= 3

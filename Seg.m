@@ -12,7 +12,7 @@ classdef Seg < handle
         function obj = Seg(varargin)
             if nargin >= 1
                 in = varargin{1};
-                if isstruct(in) || strcmp(class(in),'Seg')
+                if isstruct(in) || isa(in,'Seg')
                     obj.sample_id = in.sample_id;
                     obj.chr = in.chr;
                     obj.start = in.start;

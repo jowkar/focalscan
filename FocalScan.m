@@ -70,7 +70,6 @@ classdef FocalScan
                 % Write log file
                 mkdir(obj.output.reportdir)
                 logfile = [obj.output.reportdir filesep 'log.txt'];
-                %logfile = sprintf('%s/log.txt',obj.output.reportdir);
                 if exist(logfile,'file') == 2
                     delete(logfile)
                 end
@@ -90,11 +89,6 @@ classdef FocalScan
                 obj.internal.n_max_nan = obj.internal.n_tumors*obj.params.max_nan;
 
                 % Run main program
-%                 obj.expr
-%                 obj.cna
-%                 obj.expr.sample_id(1:10)
-%                 obj.cna.sample_id(1:10)
-%                 obj.annot.id(1:10)
                 obj = obj.main();
 %             catch lasterr
 %                 if ~isempty(lasterr)
@@ -108,7 +102,7 @@ classdef FocalScan
         end
         
         function obj = main(obj)
-            disp(sprintf('Setting pseudo_expr = %d',obj.params.pseudo_expr))
+            fprintf('Setting pseudo_expr = %d\n',obj.params.pseudo_expr)
             disp('Calculating scores')
             tic
             obj.stats = obj.focal_stats;
@@ -120,8 +114,7 @@ classdef FocalScan
             disp('Writing full report')
             obj.report = obj.make_report;
             report_file = [obj.output.reportdir filesep 'report.txt'];
-            %writetable(obj.report,sprintf('%s/report.txt',obj.output.reportdir),'delimiter','\t');
-            writetable(obj.report,report_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0);
+            writetable(obj.report,report_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0,'FileType','text');
 
             disp('Detecting peak genes/tiles')
             T = FocalScan.make_table(obj.report,obj.annot,obj.params.scorefield);
@@ -134,8 +127,7 @@ classdef FocalScan
 
             disp('Saving peak table')
             peak_file = [obj.output.reportdir filesep 'peaks.txt'];
-            %writetable(peak_table,sprintf('%s/peaks.txt',obj.output.reportdir),'Delimiter','\t');
-            writetable(peak_table,peak_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0);
+            writetable(peak_table,peak_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0,'FileType','text');
         end
 
         function obj = set_offset(obj)
@@ -493,7 +485,7 @@ classdef FocalScan
         
         function [c,p] = spearcorr(a,b)
             
-            % do note consider NaN elements
+            % do not consider NaN elements
             idx = isnan(a) | isnan(b);
             a = a(~idx);
             b = b(~idx);
@@ -551,8 +543,7 @@ classdef FocalScan
                             mkdir(writedir)
                         end
                         out_file = [writedir filesep 'peaks.txt'];
-                        %writetable(t,sprintf('%s/peaks.txt',writedir),'Delimiter','\t')
-                        writetable(t,out_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0)
+                        writetable(t,out_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0,'FileType','text')
                     end
                     success = 1;
                 catch
@@ -579,7 +570,7 @@ classdef FocalScan
             end
             gene_annot = Annot(optional_gene_annot); % cannot have headers
 
-            % Find gene(s) overlapping tile
+            % Find gene(s) overlapping each tile
             peak_genes = cell(length(t.Chr),1);
             for i = 1:length(t.Chr) 
                idx = strcmp(gene_annot.chr,t.Chr(i)) & ...
@@ -596,8 +587,7 @@ classdef FocalScan
                     mkdir(writedir)
                 end
                 out_file = [writedir filesep 'peaks_gene_ids.txt'];
-                %writetable(t,sprintf('%s/peaks_gene_ids.txt',writedir),'Delimiter','\t')
-                writetable(t,out_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0)
+                writetable(t,out_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0,'FileType','text')
             end
         end
 
@@ -684,7 +674,7 @@ classdef FocalScan
             peak_file_name = p.Results.peak_file_name;
 
             if isempty(level)
-                 % find the first ("largest scale") level that yields at least min_genes peaks
+                % find the first ("largest scale") level that yields at least min_genes peaks
                 max_level = get_max_level(T);
                 p = [];
                 flag = length(p) <= min_genes;
@@ -742,7 +732,7 @@ classdef FocalScan
                     if ~exist(plot_dir,'file') == 7
                         mkdir(plot_dir)
                     end
-                    f=figure('Visible','off');
+                    figure('Visible','off');
                 else
                     figure;
                 end
@@ -769,7 +759,6 @@ classdef FocalScan
                 if ~strcmp(plot_dir,'')
                     mkdir(plot_dir)
                     fname = [plot_dir filesep peak_file_name '.pdf'];
-                    %fname = sprintf('%s/%s.pdf',plot_dir,peak_file_name);
                     set(gcf, 'PaperUnits', 'inches');
                     set(gcf, 'PaperSize', [30 25]);
                     set(gcf, 'PaperPositionMode','auto')

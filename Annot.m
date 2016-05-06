@@ -10,7 +10,7 @@ classdef Annot < handle
         function obj = Annot(varargin)
             if nargin >= 1
                 in = varargin{1};
-                if isstruct(in) || strcmp(class(in),'Annot')
+                if isstruct(in) || isa(in,'Annot')
                     obj.chr = in.chr;
                     obj.start = in.start;
                     obj.stop = in.stop;

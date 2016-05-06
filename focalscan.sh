@@ -38,7 +38,7 @@ argstring=$("$install_dir"/build_argstring.sh "$@")
 if [ -z "$argstring" ]
 then
     echo
-    echo "FOCALSCAN: Rank genes based coordinated focal changes in copy number and expression."
+    echo "FOCALSCAN: Rank genes based on coordinated focal changes in copy number and expression."
     echo
     echo "$(tput bold)USAGE:$(tput sgr0)
     focalscan.sh parameter_name1 parameter_value1 ... parameter_nameN parameter_valueN
