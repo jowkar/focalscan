@@ -4,10 +4,10 @@
 install_dir=$(echo "$PATH" | tr : '\n' | grep focalscan)
 if [ -z "$install_dir" ]
 then
-    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files..."
+#    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files..."
     if [ -f "./FocalScan.m" ];
     then
-        echo "Main file found. Temporarily adding current directory to PATH"
+#        echo "Main file found. Temporarily adding current directory to PATH."
         export PATH="$PATH":"$(pwd)"
     else
         echo "The necessary files were not found in the current directory. Please manually add the directory countaining the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
@@ -17,7 +17,7 @@ then
     install_dir=$(echo "$PATH" | tr : '\n' | grep focalscan)
     if [ -z "$install_dir" ]
     then
-        echo "Failed adding current directory to PATH, for unknown reasons"
+        echo "Failed adding current directory to PATH, for unknown reasons."
         exit $?
     fi
 fi

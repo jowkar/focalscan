@@ -45,7 +45,7 @@ classdef CNA < handle
                     
                     obj.gene_id = annot.id;
                 case 2 % csv input
-                    obj.data = readtable(obj.datasource.cna_csv,'ReadRowNames',false,'ReadVariableNames',true);
+                    obj.data = readtable(obj.datasource.cna_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true);
                     obj.sample_id = obj.data.Properties.VariableNames;
                     obj.data = table2array(obj.data);
                 otherwise

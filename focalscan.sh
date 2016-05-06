@@ -10,10 +10,10 @@
 install_dir=$(echo "$PATH" | tr : '\n' | grep focalscan)
 if [ -z "$install_dir" ]
 then
-    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files..."
+#    echo "The installation directory was not found in the PATH variable. Checking if the currect directory contains the necessary files..."
     if [ -f "./FocalScan.m" ];
     then
-        echo "Main file found. Temporarily adding current directory to PATH."
+#        echo "Main file found. Temporarily adding current directory to PATH."
         export PATH="$PATH":"$(pwd)"
     else
         echo "The necessary files were not found in the current directory. Please manually add the directory countaining the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
@@ -57,19 +57,19 @@ then
 	$(tput bold)expr_ratio_csv$(tput sgr0)               $(tput smul)''$(tput rmul)
 	
     [Additional options]
-	$(tput bold)window_size$(tput sgr0)                $(tput smul)10e6$(tput rmul)
-	$(tput bold)neutral_thresh$(tput sgr0)             $(tput smul)0.1$(tput rmul)
-	$(tput bold)min_neutral$(tput sgr0)                $(tput smul)20$(tput rmul)
-	$(tput bold)pseudo_expr$(tput sgr0)                $(tput smul)''$(tput rmul)
-	$(tput bold)pseudo_expr_relative$(tput sgr0)       $(tput smul)10$(tput rmul)
-	$(tput bold)max_nan$(tput sgr0)                    $(tput smul)0.1$(tput rmul)
-	$(tput bold)reportdir$(tput sgr0)                  $(tput smul)'.'$(tput rmul)
-	$(tput bold)normalization$(tput sgr0)              $(tput smul)percentile$(tput rmul) {$(tput smul)percentile$(tput rmul),$(tput smul)library_size$(tput rmul),$(tput smul)none$(tput rmul)}
-	$(tput bold)percentile$(tput sgr0)                 $(tput smul)95$(tput rmul)
-	$(tput bold)optional_gene_annot$(tput sgr0)        $(tput smul)''$(tput rmul)
-	$(tput bold)peak_level$(tput sgr0)                 $(tput smul)0.6$(tput rmul) {$(tput smul)0.0$(tput rmul)-$(tput smul)1.0$(tput rmul)}
-	$(tput bold)only_focal$(tput sgr0)                 $(tput smul)''$(tput rmul)
-	$(tput bold)scorefield$(tput sgr0)                 $(tput smul)fs_hp$(tput rmul)
+	$(tput bold)window_size$(tput sgr0)                  $(tput smul)10e6$(tput rmul)
+	$(tput bold)neutral_thresh$(tput sgr0)               $(tput smul)0.1$(tput rmul)
+	$(tput bold)min_neutral$(tput sgr0)                  $(tput smul)20$(tput rmul)
+	$(tput bold)pseudo_expr$(tput sgr0)                  $(tput smul)''$(tput rmul)
+	$(tput bold)pseudo_expr_relative$(tput sgr0)         $(tput smul)10$(tput rmul)
+	$(tput bold)max_nan$(tput sgr0)                      $(tput smul)0.1$(tput rmul)
+	$(tput bold)reportdir$(tput sgr0)                    $(tput smul)'.'$(tput rmul)
+	$(tput bold)normalization$(tput sgr0)                $(tput smul)percentile$(tput rmul) {$(tput smul)percentile$(tput rmul),$(tput smul)library_size$(tput rmul),$(tput smul)none$(tput rmul)}
+	$(tput bold)percentile$(tput sgr0)                   $(tput smul)95$(tput rmul)
+	$(tput bold)optional_gene_annot$(tput sgr0)          $(tput smul)''$(tput rmul)
+	$(tput bold)peak_level$(tput sgr0)                   $(tput smul)0.6$(tput rmul) {$(tput smul)0.0$(tput rmul)-$(tput smul)1.0$(tput rmul)}
+	$(tput bold)only_focal$(tput sgr0)                   $(tput smul)''$(tput rmul)
+	$(tput bold)scorefield$(tput sgr0)                   $(tput smul)fs_hp$(tput rmul)
 
 "
     echo "$(tput bold)EXAMPLE:$(tput sgr0)

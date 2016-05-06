@@ -121,19 +121,21 @@ classdef FocalScan
             obj.report = obj.make_report;
             report_file = [obj.output.reportdir filesep 'report.txt'];
             %writetable(obj.report,sprintf('%s/report.txt',obj.output.reportdir),'delimiter','\t');
-            writetable(obj.report,report_file,'delimiter','\t');
+            writetable(obj.report,report_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0);
 
             disp('Detecting peak genes/tiles')
             T = FocalScan.make_table(obj.report,obj.annot,obj.params.scorefield);
             peak_table = FocalScan.make_peak_table(T,obj.params.peak_level,'min_genes',obj.params.min_genes,'do_plot',obj.output.peak_figure,'plot_dir',obj.output.reportdir);
             if ~strcmp(obj.datasource.optional_gene_annot,'') && ~obj.internal.gene_level
-                peak_table = get_tile_gene_ids(peak_table,obj.datasource.optional_gene_annot);
+                peak_table = FocalScan.get_tile_gene_ids(peak_table,obj.datasource.optional_gene_annot);
+            elseif ~strcmp(obj.datasource.optional_gene_annot,'')
+                warning('Optional gene annotation specified but tile-level analysis chosen. Ignoring optional annotation.')
             end
 
             disp('Saving peak table')
             peak_file = [obj.output.reportdir filesep 'peaks.txt'];
             %writetable(peak_table,sprintf('%s/peaks.txt',obj.output.reportdir),'Delimiter','\t');
-            writetable(peak_table,peak_file,'Delimiter','\t');
+            writetable(peak_table,peak_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0);
         end
 
         function obj = set_offset(obj)
@@ -550,7 +552,7 @@ classdef FocalScan
                         end
                         out_file = [writedir filesep 'peaks.txt'];
                         %writetable(t,sprintf('%s/peaks.txt',writedir),'Delimiter','\t')
-                        writetable(t,out_file,'Delimiter','\t')
+                        writetable(t,out_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0)
                     end
                     success = 1;
                 catch
@@ -573,7 +575,7 @@ classdef FocalScan
             if istable(peak_table_path)
                 t = peak_table_path;
             else
-                t = readtable(peak_table_path,'Delimiter','\t','ReadVariableNames',1);
+                t = readtable(peak_table_path,'Delimiter','\t','ReadVariableNames',1,'ReadVariableNames',0);
             end
             gene_annot = Annot(optional_gene_annot); % cannot have headers
 
@@ -595,7 +597,7 @@ classdef FocalScan
                 end
                 out_file = [writedir filesep 'peaks_gene_ids.txt'];
                 %writetable(t,sprintf('%s/peaks_gene_ids.txt',writedir),'Delimiter','\t')
-                writetable(t,out_file,'Delimiter','\t')
+                writetable(t,out_file,'Delimiter','\t','WriteVariableNames',1,'WriteRowNames',0)
             end
         end
 

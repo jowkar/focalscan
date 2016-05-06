@@ -11,8 +11,7 @@ function t = standalone_peakdetection(report_file_path,annot_file_path,peak_leve
             error('Invalid value for the "scorefield" parameter')
         end
 
-        report = readtable(report_file_path,'Delimiter','\t','ReadVariableNames',1);
-        report(1:10,:)
+        report = readtable(report_file_path,'Delimiter','\t','ReadVariableNames',1,'ReadRowNames',0);
         annot = Annot(annot_file_path);
         T = FocalScan.make_table(report,annot,scorefield);
 
