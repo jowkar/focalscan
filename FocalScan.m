@@ -1,7 +1,6 @@
 classdef FocalScan
-    % FOCALSCAN Calculate a score based on focal coordinated change in 
-    %   copy number and expression. Then use this score to rank
-    %   genes/tiles in order to suggest likely cancer drivers.
+    % FOCALSCAN Rank genes based on coordinated focal changes in copy
+    % number and expression
     %
     %             Parameter:                    Default:    Type:
     %
@@ -309,7 +308,7 @@ classdef FocalScan
             if ismember(my_switch, [1 2 3 4 5 6])
                 obj.annot = Annot(obj.datasource.annot_file);
                 if ~obj.annot.is_gene_level && isempty(obj.datasource.optional_gene_annot)
-                   warning('Tile-level analysis chosen, but no gene annotation has been specified. The peak report will not contain information about genes overlapping each tile');
+                   warning('Tile-level analysis chosen, but no gene annotation has been specified. The peak report will not contain information about genes overlapping each tile.');
                 end
             end
             if ismember(my_switch, [1 2])
@@ -621,7 +620,7 @@ classdef FocalScan
                 if isempty(intersect(t2.Id,t1.Id))
                     error('None of the gene annotation IDs match those in the report file.')
                 end
-            elseif all(isnumeric(t2.Id)) & ~all(isnumeric(t1.Id))
+            elseif all(isnumeric(t2.Id)) && ~all(isnumeric(t1.Id))
                 error('The IDs in the annotation file do not match those in the report file.')
             elseif all(iscellstr(t2.Id)) && all(iscellstr(t1.Id))
                 if isempty(intersect(t2.Id,t1.Id))
