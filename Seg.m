@@ -50,7 +50,7 @@ classdef Seg < handle
                         u = unique(s.sample_id);
                         u_converted = genvarname(u);
                         for i = 1:length(u_converted)
-                           s.sample_id(ismember(s.sample_id,u(i))) = u(i); 
+                           s.sample_id(ismember(s.sample_id,u(i))) = u_converted(i); 
                         end
                         obj.sample_id = s.sample_id;
                     else
