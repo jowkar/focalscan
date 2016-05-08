@@ -17,7 +17,15 @@ classdef CNA < handle
                 case 1 % segmented copy number input
                     annot = obj.datasource.annot;
                     seg = obj.datasource.seg;
-                    obj.sample_id = matlab.lang.makeValidName(unique(seg.sample_id));
+                    
+                    c = char(version);
+                    c = str2double(c(1:3));
+                    if c < 9.0
+                        obj.sample_id = genvarname(unique(seg.sample_id));
+                    else
+                        obj.sample_id = matlab.lang.makeValidName(unique(seg.sample_id));
+                    end
+                    
                     obj.data = NaN(length(annot.id), length(obj.sample_id), 'single');
                     
                     % divide tile_annot into per-chromosome pieces for faster matching later

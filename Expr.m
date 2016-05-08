@@ -81,7 +81,14 @@ classdef Expr < handle
                     end
                     fprintf('Read %d samples\n',n);
                     obj.data = expr.data;
-                    obj.sample_id = matlab.lang.makeValidName(expr.sample_id);
+                    
+                    c = char(version);
+                    c = str2double(c(1:3));
+                    if c < 9.0
+                        obj.sample_id = genvarname(expr.sample_id);
+                    else
+                        obj.sample_id = matlab.lang.makeValidName(expr.sample_id);
+                    end
                 case 2 % csv formatted input
                     obj.data = readtable(obj.datasource.expr_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true);
                     obj.sample_id = obj.data.Properties.VariableNames;
@@ -169,9 +176,12 @@ classdef Expr < handle
         function data = normalize(data,mode,varargin)
             transpose = 0;
             if size(data,2) > size(data,1)
+                fprintf('Assuming %d gene/tile IDs and %d samples\n',size(data,2),size(data,1))
                 data = data';
                 transpose = 1;
                 %error('Either the data matrix is transposed the wrong way, or fewer genes than samples are included')
+            else
+                fprintf('Assuming %d gene/tile IDs and %d samples\n',size(data,1),size(data,2))
             end
             fprintf('Performing %s normalization\n',mode)
             switch mode

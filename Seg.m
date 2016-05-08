@@ -33,7 +33,15 @@ classdef Seg < handle
                     end
 
                     obj.chr = s.chr;
-                    obj.sample_id = matlab.lang.makeValidName(s.sample_id);
+                    
+                    c = char(version);
+                    c = str2double(c(1:3));
+                    if c < 9.0
+                        obj.sample_id = genvarname(s.sample_id);
+                    else
+                        obj.sample_id = matlab.lang.makeValidName(s.sample_id);
+                    end
+                    
                     obj.start = uint32(s.start);
                     obj.stop = uint32(s.stop);
                     obj.num_mark = s.num_mark;
