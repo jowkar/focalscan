@@ -48,9 +48,10 @@ classdef Seg < handle
                     c = str2double(c(1:3));
                     if c < 9.0
                         u = unique(s.sample_id);
-                        [~,idx1,idx2] = intersect(s.sample_id,u);
-                        u = genvarname(u);
-                        s.sample_id(idx1) = u(idx2);
+                        u_converted = genvarname(u);
+                        for i = 1:length(u_converted)
+                           s.sample_id(ismember(s.sample_id,u(i))) = u(i); 
+                        end
                         obj.sample_id = s.sample_id;
                     else
                         obj.sample_id = matlab.lang.makeValidName(s.sample_id);
