@@ -122,7 +122,7 @@ classdef FocalScan
             if ~strcmp(obj.datasource.optional_gene_annot,'') && ~obj.internal.gene_level
                 peak_table = FocalScan.get_tile_gene_ids(peak_table,obj.datasource.optional_gene_annot);
             elseif ~strcmp(obj.datasource.optional_gene_annot,'')
-                warning('Optional gene annotation specified but tile-level analysis chosen. Ignoring optional annotation.')
+                warning('Ingoring optional gene annotation since gene-level analysis was chosen.')
             end
 
             disp('Saving peak table')
