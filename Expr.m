@@ -90,11 +90,11 @@ classdef Expr < handle
                         obj.sample_id = matlab.lang.makeValidName(expr.sample_id);
                     end
                 case 2 % csv formatted input
-                    obj.data = readtable(obj.datasource.expr_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true);
+                    obj.data = readtable(obj.datasource.expr_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true,'FileType','text');
                     obj.sample_id = obj.data.Properties.VariableNames;
                     obj.data = table2array(obj.data);
                 case 3 % csv formatted log2 ratios
-                    obj.data = readtable(obj.datasource.expr_ratio_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true);
+                    obj.data = readtable(obj.datasource.expr_ratio_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true,'FileType','text');
                     obj.sample_id = obj.data.Properties.VariableNames;
                     obj.data = table2array(obj.data);
                 otherwise
