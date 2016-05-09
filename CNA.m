@@ -18,13 +18,7 @@ classdef CNA < handle
                     annot = obj.datasource.annot;
                     seg = obj.datasource.seg;
                     
-                    c = char(version);
-                    c = str2double(c(1:3));
-                    if c < 9.0
-                        obj.sample_id = genvarname(unique(seg.sample_id));
-                    else
-                        obj.sample_id = matlab.lang.makeValidName(unique(seg.sample_id));
-                    end
+                    obj.sample_id = Expr.make_valid_var_names(unique(seg.sample_id));
                     
                     obj.data = NaN(length(annot.id), length(obj.sample_id), 'single');
                     
@@ -53,9 +47,7 @@ classdef CNA < handle
                     
                     obj.gene_id = annot.id;
                 case 2 % csv input
-                    obj.data = readtable(obj.datasource.cna_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true);
-                    obj.sample_id = obj.data.Properties.VariableNames;
-                    obj.data = table2array(obj.data);
+                    [obj.data,obj.sample_id] = Expr.readcsv(obj.datasource.cna_csv);
                 otherwise
                     error('Invalid input')
             end

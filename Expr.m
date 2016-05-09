@@ -81,24 +81,13 @@ classdef Expr < handle
                     end
                     fprintf('Read %d samples\n',n);
                     obj.data = expr.data;
-                    
-                    c = char(version);
-                    c = str2double(c(1:3));
-                    if c < 9.0
-                        obj.sample_id = genvarname(expr.sample_id);
-                    else
-                        obj.sample_id = matlab.lang.makeValidName(expr.sample_id);
-                    end
+                    obj.sample_id = Expr.make_valid_var_names(expr.sample_id);
                 case 2 % csv formatted input
-                    obj.data = readtable(obj.datasource.expr_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true,'FileType','text');
-                    obj.sample_id = obj.data.Properties.VariableNames;
-                    obj.data = table2array(obj.data);
+                    [obj.data,obj.sample_id] = Expr.readcsv(obj.datasource.expr_csv);
                 case 3 % csv formatted log2 ratios
-                    obj.data = readtable(obj.datasource.expr_ratio_csv,'Delimiter',',','ReadRowNames',false,'ReadVariableNames',true,'FileType','text');
-                    obj.sample_id = obj.data.Properties.VariableNames;
-                    obj.data = table2array(obj.data);
+                    [obj.data,obj.sample_id] = Expr.readcsv(obj.datasource.expr_ratio_csv);
                 otherwise
-                    error('Invalid input')
+                    error('Invalid expression data input')
             end
             
             if size(obj.sample_id,1) < size(obj.sample_id,2)
@@ -214,6 +203,29 @@ classdef Expr < handle
             if transpose == 1
                 data = data';
             end
+        end
+        
+        function valid_names = make_valid_var_names(names)
+            c = char(version);
+            c = str2double(c(1:3));
+            if c < 9.0
+                valid_names = genvarname(names);
+            else
+                valid_names = matlab.lang.makeValidName(names);
+            end
+        end
+        
+        function [data,samples] = readcsv(fname)
+            fid = fopen(fname,'r');
+            firstline = fgetl(fid); % textscan will read the remaining lines
+            samples = textscan(firstline,'%s','Delimiter',',');
+            samples = samples{1};
+            formatstring = repmat('%f',1,length(samples));
+            data = textscan(fid,formatstring,'Delimiter', ',', 'CollectOutput',true);
+            data = single(data{1});
+            fclose( fid );
+            
+            samples = Expr.make_valid_var_names(samples);
         end
     end
 end

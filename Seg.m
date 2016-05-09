@@ -20,20 +20,23 @@ classdef Seg < handle
                     obj.num_mark = in.num_mark;
                     obj.seg_mean = in.seg_mean;
                 elseif ischar(varargin{1})
-                    s = readtable(in,'FileType','text','ReadVariableNames',1,'ReadRowNames',0,'Delimiter','\t');
-                    s.Properties.VariableNames = {'sample_id','chr','start','stop','num_mark','seg_mean'};
-
-                    %if length(strsplit(s.chr{1},'chr')) == 1 % If the chromosome name does not begin with 'chr'
+                   fid = fopen(in);
+                   s = textscan(fid, '%s%s%d%d%d%f','delimiter','\t','headerlines',1);
+                   fclose(fid);
+                   s = cell2struct(s, {'sample_id','chr','start','stop','num_mark','seg_mean'},2);
                     
-                    if isnumeric(s.chr)
-                        s_no_chr = cellstr(num2str(s.chr));
-                    elseif ischar(s.chr)
-                        s_no_chr = cellstr(s.chr);
-                    elseif iscell(s.chr)
-                        s_no_chr = s.chr;
-                    else
-                        error('Could not the determine the format of the first (chromosome) column in the .seg file')
-                    end
+%                     s = readtable(in,'FileType','text','ReadVariableNames',1,'ReadRowNames',0,'Delimiter','\t');
+%                     s.Properties.VariableNames = {'sample_id','chr','start','stop','num_mark','seg_mean'};
+                    s_no_chr = s.chr;
+%                     if isnumeric(s.chr)
+%                         s_no_chr = cellstr(num2str(s.chr));
+%                     elseif ischar(s.chr)
+%                         s_no_chr = cellstr(s.chr);
+%                     elseif iscell(s.chr)
+%                         s_no_chr = s.chr;
+%                     else
+%                         error('Could not the determine the format of the first (chromosome) column in the .seg file')
+%                     end
                         
                     if isempty(regexp(s_no_chr{1},'chr', 'once'))
                         s_chr = cell(size(s_no_chr));
