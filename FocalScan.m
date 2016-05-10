@@ -81,6 +81,10 @@ classdef FocalScan
                 % Load data
                 obj = obj.read_data();
 
+                if any(isnan(obj.expr.data))
+                    error('NaN present in expression data (not allowed).')
+                end
+                
                 % Set some additional internal parameters
                 sample = unique(obj.cna.sample_id);
                 obj.internal.n_tumors = length(sample);
