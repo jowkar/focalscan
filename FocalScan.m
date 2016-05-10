@@ -441,7 +441,7 @@ classdef FocalScan
                 norm_factor = n_tumors/(n_tumors - n_nan);
                 cna_norm = cna_data_real*norm_factor;
                 rna_norm = rna_norm(~idx_nan);
-                fs = rna_norm'*cna_norm;
+                fs = rna_norm*cna_norm';
                 
                 sum_cna = sum(cna_data_real)*norm_factor;
                 if nargout > 3
