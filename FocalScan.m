@@ -298,8 +298,7 @@ classdef FocalScan
                 disp('Reading expression data')
                 obj.expr = Expr('annot',obj.annot,'expr_path',obj.datasource.expr_path,...
                     'index_file',obj.datasource.index_file,...
-                    'file_extension',obj.datasource.file_extension,...
-                    'normalization',obj.params.normalization);
+                    'file_extension',obj.datasource.file_extension);
                 obj.expr.data = Expr.normalize(obj.expr.data,obj.params.normalization,obj.params.percentile);
             elseif ismember(my_switch, [3 4])
                 disp('Reading expression data')

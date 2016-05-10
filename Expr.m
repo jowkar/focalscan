@@ -49,6 +49,7 @@ classdef Expr < handle
                     obj.sample_id = unique(s.sample_id);
                     obj.data = zeros(length(annot.id), length(obj.sample_id), 'single');
                     
+                    disp('Assuming that all expresion data files have identical first columns (gene IDs)')
                     n = 0;
                     for i = 1:length(s.name),
                         filename = [expr_path filesep s.name{i} file_extension];
@@ -58,19 +59,29 @@ classdef Expr < handle
                             if fid < 0
                                 error('%s could not be read. Does the file have a valid format?',filename)
                             end
-                            if gene_level
-                                disp(filename)
-                                expr_this = textscan(fid, '%s%d', 'delimiter', '\t'); %%{1} is tile_id and {2} is expression
+                            
+                            if i == 1
+                                if gene_level
+                                    disp(filename)
+                                    expr_this = textscan(fid, '%s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
+                                else
+                                    disp(filename)
+                                    expr_this = textscan(fid, '%d%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
+                                end
+
+                                gene_ids = expr_this{1};
+                                [isect,idx1,idx2] = intersect(annot.id, gene_ids);
+                                if isempty(isect)
+                                    error('No gene identifiers matched the annotation. Please check that an appropriate genome annotation file has been provided.')
+                                end
+                                idx3 = strcmp(obj.sample_id, s.sample_id{i});
+                                obj.data(idx1, idx3) = single(expr_this{2}(idx2));
                             else
                                 disp(filename)
-                                expr_this = textscan(fid, '%d%d', 'delimiter', '\t'); %%{1} is tile_id and {2} is expression
+                                expr_this = textscan(fid, '%*s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
+                                idx3 = strcmp(obj.sample_id, s.sample_id{i});
+                                obj.data(idx1, idx3) = single(expr_this{1}(idx2));
                             end
-                            [isect,idx1,idx2] = intersect(annot.id, expr_this{1});
-                            if isempty(isect)
-                                error('No gene identifiers matched the annotation. Please check that an appropriate genome annotation file has been provided.')
-                            end
-                            idx3 = strcmp(obj.sample_id, s.sample_id{i});
-                            obj.data(idx1, idx3) = single(expr_this{2}(idx2));
                             fclose(fid);
                         else
                             fprintf('Warning: Sample %s not found\n',s.name{i});
@@ -104,7 +115,7 @@ classdef Expr < handle
             p.addParameter('expr_path', '', @isstr);
             p.addParameter('index_file', '', @isstr);
             p.addParameter('file_extension','',@isstr);
-            p.addParameter('normalization','none',@isstr);
+%             p.addParameter('normalization','none',@isstr);
             
             % csv-formatted data input
             p.addParameter('expr_csv', '',@isstr);
@@ -159,14 +170,12 @@ classdef Expr < handle
 
     methods (Static)
         function data = normalize(data,mode,varargin)
-            transpose = 0;
-            if size(data,2) > size(data,1)
-                fprintf('Assuming %d gene/tile IDs and %d samples\n',size(data,2),size(data,1))
-                data = data';
-                transpose = 1;
-                %error('Either the data matrix is transposed the wrong way, or fewer genes than samples are included')
+            num_samples = size(data,2);
+            num_genes = size(data,1);
+            if num_samples > num_genes
+                warning('More samples (columns) than rows (genes) in the expression data. Make sure samples correspond to columns in the data input.')
             else
-                fprintf('Assuming %d gene/tile IDs and %d samples\n',size(data,1),size(data,2))
+                fprintf('Assuming %d gene/tile IDs and %d samples\n',num_genes,num_samples)
             end
             fprintf('Performing %s normalization\n',mode)
             switch mode
@@ -177,7 +186,7 @@ classdef Expr < handle
                     else
                         div = 20;
                     end
-                    for i = 1:size(data,2) % for each sample
+                    for i = 1:num_samples % for each sample
                         norm_fact = sort(data(:, i), 'descend');
                         norm_fact = median(norm_fact(1:ceil(end/div)));
                         if norm_fact == 0
@@ -190,14 +199,14 @@ classdef Expr < handle
                 case 'none'
                     % Do nothing
                 case 'library_size'
-                    norm_fact = sum(data);
-                    norm_fact = repmat(norm_fact,size(data,1),1);
-                    data = (data./norm_fact).*10^6;
+                    norm_fact = sum(data,1);
+                    if length(norm_fact) ~= num_samples
+                        error('Size of normalization factor does not correspond to the number of samples.')
+                    end
+                    norm_fact = repmat(norm_fact,num_genes,1);
+                    data = (data./norm_fact)*10^6;
                 otherwise
                     error('Unrecognized normalization option: %s',mode)
-            end
-            if transpose == 1
-                data = data';
             end
         end
         
