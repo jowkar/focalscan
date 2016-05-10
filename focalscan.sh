@@ -29,7 +29,6 @@ then
 fi
 
 current_dir=$(pwd)
-
 argstring=$("$install_dir"/build_argstring.sh "$@")
 #argstring="$argstring,'current_dir','$current_dir'"
 

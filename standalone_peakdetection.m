@@ -3,7 +3,7 @@ function t = standalone_peakdetection(report_file_path,annot_file_path,peak_leve
     p.addRequired('report_file_path',@isstr)
     p.addRequired('annot_file_path',@isstr)
     p.addRequired('peak_level',@isnumeric)
-    expected_values = {'fs','fs_hp','sum_cna','sum_cna_hp','spearman_corr'};
+    expected_values = {'fs','fs_hp','sum_cna','sum_cna_hp','pearson_corr'};
     p.addRequired('scorefield',@(x) any(validatestring(x,expected_values)));
     p.addRequired('out_file',@isstr);
     p.addParameter('optional_gene_annot','',@isstr);

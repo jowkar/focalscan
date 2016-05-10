@@ -51,11 +51,9 @@ classdef CNA < handle
                 otherwise
                     error('Invalid input')
             end
-            if size(obj.sample_id,1) < size(obj.sample_id,2)
-                obj.sample_id = obj.sample_id';
-            end
-            if size(obj.data,1) > size(obj.data,2)
-                obj.data = obj.data';
+            
+            if size(obj.data,1) < size(obj.data,2)
+                warning('More samples than genes provided. Check that samples correspond to columns and genes to rows in CNA data input.')
             end
         end
         

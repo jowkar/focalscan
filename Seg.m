@@ -7,7 +7,7 @@ classdef Seg < handle
         num_mark
         seg_mean
     end
-
+    
     methods
         function obj = Seg(varargin)
             if nargin >= 1
@@ -20,31 +20,19 @@ classdef Seg < handle
                     obj.num_mark = in.num_mark;
                     obj.seg_mean = in.seg_mean;
                 elseif ischar(varargin{1})
-                   fid = fopen(in);
-                   s = textscan(fid, '%s%s%d%d%d%f','delimiter','\t','headerlines',1);
-                   fclose(fid);
-                   s = cell2struct(s, {'sample_id','chr','start','stop','num_mark','seg_mean'},2);
-                    
-%                     s = readtable(in,'FileType','text','ReadVariableNames',1,'ReadRowNames',0,'Delimiter','\t');
-%                     s.Properties.VariableNames = {'sample_id','chr','start','stop','num_mark','seg_mean'};
+                    fid = fopen(in);
+                    s = textscan(fid, '%s%s%d%d%d%f','delimiter','\t','headerlines',1);
+                    fclose(fid);
+                    s = cell2struct(s, {'sample_id','chr','start','stop','num_mark','seg_mean'},2);
                     s_no_chr = s.chr;
-%                     if isnumeric(s.chr)
-%                         s_no_chr = cellstr(num2str(s.chr));
-%                     elseif ischar(s.chr)
-%                         s_no_chr = cellstr(s.chr);
-%                     elseif iscell(s.chr)
-%                         s_no_chr = s.chr;
-%                     else
-%                         error('Could not the determine the format of the first (chromosome) column in the .seg file')
-%                     end
-                        
+                    
                     if isempty(regexp(s_no_chr{1},'chr', 'once'))
                         s_chr = cell(size(s_no_chr));
                         for i = 1:length(s_chr)
                             s_chr{i} = ['chr' char(strtrim(s_no_chr(i)))];
                         end
                     end
-
+                    
                     obj.chr = s_chr;
                     
                     c = char(version);
@@ -53,7 +41,7 @@ classdef Seg < handle
                         u = unique(s.sample_id);
                         u_converted = genvarname(u);
                         for i = 1:length(u_converted)
-                           s.sample_id(ismember(s.sample_id,u(i))) = u_converted(i); 
+                            s.sample_id(ismember(s.sample_id,u(i))) = u_converted(i);
                         end
                         obj.sample_id = s.sample_id;
                     else
@@ -72,14 +60,14 @@ classdef Seg < handle
                 end
             end
         end
-
+        
         function [cna_data] = get_seg_means(obj,chr,pos) % get CNA data from seg file for gene level
             k = (obj.start <= pos) & (obj.stop >= pos) & strcmp(obj.chr,chr);
-%             persistent unique_seg_sample_ids % might cause problems
-%             if isempty(unique_seg_sample_ids)
-                unique_seg_sample_ids = unique(obj.sample_id);
-%             end
-            cna_data = NaN(length(unique_seg_sample_ids),1);
+            % persistent unique_seg_sample_ids % might cause problems
+            % if isempty(unique_seg_sample_ids)
+            unique_seg_sample_ids = unique(obj.sample_id);
+            % end
+            cna_data = NaN(1,length(unique_seg_sample_ids));
             
             [~,locb] = ismember(obj.sample_id(k),unique_seg_sample_ids);
             cna_data(locb) = obj.seg_mean(k);

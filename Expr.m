@@ -46,8 +46,8 @@ classdef Expr < handle
                     
                     gene_level = annot.is_gene_level;
                     
-                    expr.sample_id = unique(s.sample_id);
-                    expr.data = zeros(length(annot.id), length(expr.sample_id), 'single');
+                    obj.sample_id = unique(s.sample_id);
+                    obj.data = zeros(length(annot.id), length(obj.sample_id), 'single');
                     
                     n = 0;
                     for i = 1:length(s.name),
@@ -69,8 +69,8 @@ classdef Expr < handle
                             if isempty(isect)
                                 error('No gene identifiers matched the annotation. Please check that an appropriate genome annotation file has been provided.')
                             end
-                            idx3 = strcmp(expr.sample_id, s.sample_id{i});
-                            expr.data(idx1, idx3) = expr.data(idx1, idx3) + single(expr_this{2}(idx2));
+                            idx3 = strcmp(obj.sample_id, s.sample_id{i});
+                            obj.data(idx1, idx3) = single(expr_this{2}(idx2));
                             fclose(fid);
                         else
                             fprintf('Warning: Sample %s not found\n',s.name{i});
@@ -80,8 +80,7 @@ classdef Expr < handle
                         error('No samples were read. Check that the correct path to expression files was given.')
                     end
                     fprintf('Read %d samples\n',n);
-                    obj.data = expr.data;
-                    obj.sample_id = Expr.make_valid_var_names(expr.sample_id);
+                    obj.sample_id = Expr.make_valid_var_names(obj.sample_id);
                 case 2 % csv formatted input
                     [obj.data,obj.sample_id] = Expr.readcsv(obj.datasource.expr_csv);
                 case 3 % csv formatted log2 ratios
@@ -90,11 +89,8 @@ classdef Expr < handle
                     error('Invalid expression data input')
             end
             
-            if size(obj.sample_id,1) < size(obj.sample_id,2)
-                obj.sample_id = obj.sample_id'; 
-            end
-            if size(obj.data,1) > size(obj.data,2)
-                obj.data = obj.data';
+            if size(obj.data,1) < size(obj.data,2)
+                warning('More samples than genes provided. Check that samples correspond to columns and genes to rows in expression data input.')
             end
             disp('Finished reading expression data')
         end

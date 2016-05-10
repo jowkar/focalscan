@@ -42,7 +42,7 @@ then
                 $(tput smul)fs:$(tput rmul) FocalScan score without focality filter
                 $(tput smul)sum_cna_hp:$(tput rmul) summed copy number amplitudes, with focality filter 
                 $(tput smul)sum_cna:$(tput rmul) summed copy number amplitudes, without focality filter 
-                $(tput smul)spearman_corr:$(tput rmul) spearman correlation coefficient)
+                $(tput smul)pearson_corr:$(tput rmul) pearson correlation coefficient)
         $(tput bold)out_file:$(tput sgr0) name of output file (ie. peaks.txt)"
     echo
     echo "$(tput bold)EXAMPLE:$(tput sgr0)

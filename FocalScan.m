@@ -58,13 +58,11 @@ classdef FocalScan
 %         n_max_nan
 %         offset
 %         gene_level
-%         corrfun
     end
     
     methods
         function obj = FocalScan(varargin)
             % Parse input arguments
-%             try
                 [obj.params, obj.datasource, obj.output] = FocalScan.handle_input(varargin{:});
 
                 % Write log file
@@ -90,14 +88,6 @@ classdef FocalScan
 
                 % Run main program
                 obj = obj.main();
-%             catch lasterr
-%                 if ~isempty(lasterr)
-%                     disp(getReport(lasterr,'extended','hyperlinks','off'))
-%                 else
-%                     disp('Error. Exiting')
-%                 end
-%                 exit
-%             end
             diary off
         end
         
@@ -140,7 +130,7 @@ classdef FocalScan
         end
         
         function [stats] = focal_stats(obj)
-            len = size(obj.expr.data,2);
+            len = size(obj.expr.data,1);
             
             if ~obj.params.only_focal
                 fs = nan(len,1);
@@ -152,29 +142,28 @@ classdef FocalScan
             num_neutral = nan(len,1);
             num_amplified = nan(len,1);
             num_deleted = nan(len,1);
-            spearman_corr = nan(len,1);
-            spearman_p_val = nan(len,1);
+            pearson_corr = nan(len,1);
+            pearson_p_val = nan(len,1);
 
             for i = 1:len %for each gene/tile
-                mean_expr(i) = mean(obj.expr.data(~isnan(obj.expr.data(:,i)),i));
+                mean_expr(i) = mean(obj.expr.data(i,~isnan(obj.expr.data(i,:))));
                 
                 if ~obj.params.only_focal
-                    [fs(i), sum_cna(i)] = FocalScan.main_score(obj.cna.data(:,i),obj.expr.data(:,i),obj.params,obj.internal.n_tumors,obj.internal.n_max_nan,obj.internal.corrfun);
+                    [fs(i), sum_cna(i)] = FocalScan.main_score(obj.cna.data(i,:),obj.expr.data(i,:),obj.params,obj.internal.n_tumors,obj.internal.n_max_nan);
                 end
 
                 [cna_left, cna_right] = obj.get_cna_data_at_offset(i);
-                cna_hp = FocalScan.focal_score(obj.cna.data(:,i), cna_left, cna_right);
+                cna_hp = FocalScan.focal_score(obj.cna.data(i,:), cna_left, cna_right); % transposed
                 num_neutral(i) = sum(abs(cna_hp) <= 0.1);
                 num_deleted(i) = sum(cna_hp < -0.1);
                 num_amplified(i) = sum(cna_hp > 0.1);
                 
                 if ~strcmp(obj.expr.datasource.expr_ratio_csv,'')
-                    [fs_hp(i), sum_cna_hp(i),spearman_corr(i),spearman_p_val(i)] = FocalScan.main_score_ratios(cna_hp,obj.expr.data(:,i),obj.internal.n_tumors,obj.internal.n_max_nan,obj.internal.corrfun);
+                    [fs_hp(i), sum_cna_hp(i),pearson_corr(i),pearson_p_val(i)] = FocalScan.main_score_ratios(cna_hp,obj.expr.data(i,:),obj.internal.n_tumors,obj.internal.n_max_nan);
                 else
-                    [fs_hp(i), sum_cna_hp(i),spearman_corr(i),spearman_p_val(i)] = FocalScan.main_score(cna_hp,obj.expr.data(:,i),obj.params,obj.internal.n_tumors,obj.internal.n_max_nan,obj.internal.corrfun);
+                    [fs_hp(i), sum_cna_hp(i),pearson_corr(i),pearson_p_val(i)] = FocalScan.main_score(cna_hp,obj.expr.data(i,:),obj.params,obj.internal.n_tumors,obj.internal.n_max_nan);
                 end
             end
-            %delete(gcp('nocreate'))
             
             if ~obj.params.only_focal
                 stats.fs = fs;
@@ -186,8 +175,8 @@ classdef FocalScan
             stats.num_neutral = num_neutral;
             stats.num_amplified = num_amplified;
             stats.num_deleted = num_deleted;
-            stats.spearman_corr = real(spearman_corr);
-            stats.spearman_p_val = spearman_p_val;
+            stats.pearson_corr = real(pearson_corr);
+            stats.pearson_p_val = pearson_p_val;
         end
         
         function [cna_data_left, cna_data_right] = get_cna_data_at_offset(obj,iter)
@@ -203,26 +192,26 @@ classdef FocalScan
                 if isempty(obj.seg)
                     if same_chr_left
                         idx_closest = obj.annot.get_closest(current_chr,left_pos);
-                        cna_data_left = obj.cna.data(:,idx_closest);
+                        cna_data_left = obj.cna.data(idx_closest,:);
                     else
-                        cna_data_left = zeros(length(obj.cna.sample_id),1);
+                        cna_data_left = zeros(size(obj.cna.data(1,:)));
                     end
                     if same_chr_right
                         idx_closest = obj.annot.get_closest(current_chr,right_pos);
-                        cna_data_right = obj.cna.data(:,idx_closest);
+                        cna_data_right = obj.cna.data(idx_closest,:);
                     else
-                        cna_data_right = zeros(length(obj.cna.sample_id),1);
+                        cna_data_right = zeros(size(obj.cna.data(1,:)));
                     end
                 else
                     if same_chr_left
                         cna_data_left = obj.seg.get_seg_means(current_chr,left_pos);
                     else
-                        cna_data_left = zeros(length(obj.cna.sample_id),1);
+                        cna_data_left = zeros(size(obj.cna.data(1,:)));
                     end
                     if same_chr_right
                         cna_data_right = obj.seg.get_seg_means(current_chr,right_pos);
                     else
-                        cna_data_right = zeros(length(obj.cna.sample_id),1);
+                        cna_data_right = zeros(size(obj.cna.data(1,:)));
                     end
                 end
             else
@@ -241,14 +230,14 @@ classdef FocalScan
                 same_chr_right = strcmp(current_chr,chr_right);
                 
                 if same_chr_left
-                    cna_data_left = obj.cna.data(:, iter - obj.internal.offset);
+                    cna_data_left = obj.cna.data(iter - obj.internal.offset,:); % set all = 0 if past chr edge
                 else
-                    cna_data_left = zeros(length(obj.cna.sample_id), 1); % set all =0 if past chr edge
+                    cna_data_left = zeros(size(obj.cna.data(1,:)));
                 end
                 if same_chr_right
-                    cna_data_right = obj.cna.data(:,iter + obj.internal.offset);
+                    cna_data_right = obj.cna.data(iter + obj.internal.offset,:);
                 else
-                    cna_data_right = zeros(length(obj.cna.sample_id), 1);
+                    cna_data_right = zeros(size(obj.cna.data(1,:)));
                 end
             end
         end
@@ -330,7 +319,7 @@ classdef FocalScan
             elseif ismember(my_switch, [2 4 6])
                 disp('Reading copy number data')
                 obj.cna = CNA('cna_csv',obj.datasource.cna_csv);
-                if length(obj.annot.id) ~= size(obj.cna.data,2)
+                if length(obj.annot.id) ~= size(obj.cna.data,1)
                     error('fewer columns in the copy number csv file than genes in the annotation')
                 end
             end
@@ -342,16 +331,14 @@ classdef FocalScan
                error('No matching samples found in the CNA and expression data') 
             end
             
-            if size(obj.expr.data,2) ~= size(obj.cna.data,2)
-%                obj.expr
-%                obj.cna
+            if size(obj.expr.data,1) ~= size(obj.cna.data,1)
                error('Expression and copy number data must contain the same number of genes. (If using CSV input for expression data, make sure that the genes in this file matches (and is in the same order as) those in the annotation file.'); 
             end            
             
             obj.cna.sample_id = obj.cna.sample_id(idx1);
-            obj.cna.data = obj.cna.data(idx1,:);
+            obj.cna.data = obj.cna.data(:,idx1);
             obj.expr.sample_id = obj.expr.sample_id(idx2);
-            obj.expr.data = obj.expr.data(idx2,:);
+            obj.expr.data = obj.expr.data(:,idx2);
             
             if ~strcmp(obj.datasource.seg_file,'')
                 % remove unnecesary samples from seg
@@ -390,13 +377,11 @@ classdef FocalScan
                 [~,~,idx] = unique(obj.expr.sample_id);
                 obj.cna.sample_id = idx;
                 obj.expr.sample_id = idx;
-                clear idx
             else
                 error('Expression data and CNA data must all have identical and unique sample ids');
             end
             
             if obj.params.pseudo_expr == 0
-                %disp('Setting pseudo_expr')
                 obj.params.pseudo_expr = median(obj.expr.data(obj.expr.data>0))*obj.params.pseudo_expr_relative;
             end
             
@@ -404,20 +389,18 @@ classdef FocalScan
                warning('Both scorefield=fs and only_focal=1 were specified. Ignoring the latter.') 
                obj.params.only_focal = 0;
             end
-            
-            obj.internal.corrfun = exist([matlabroot filesep 'toolbox' filesep 'stats'],'dir') > 0;
         end
     end
     
     methods (Static)
-        function [fs, sum_cna,spearman_corr,spearman_p_val] = main_score(cna_data,expr_data,params,n_tumors,n_max_nan,corrfun)
+        function [fs, sum_cna,pearson_corr,pearson_p_val] = main_score(cna_data,expr_data,params,n_tumors,n_max_nan)
             idx_nan = isnan(cna_data) | isnan(expr_data);
             n_nan = sum(idx_nan);
             
             fs = NaN;
             sum_cna = NaN;
-            spearman_corr = NaN;
-            spearman_p_val = NaN;
+            pearson_corr = NaN;
+            pearson_p_val = NaN;
             
             if n_nan <= n_max_nan % skip if to many NaN's
                 cna_data_real = cna_data(~idx_nan);
@@ -431,26 +414,24 @@ classdef FocalScan
                     median_expr_neut = median(expr_data_real(idx_neutral));
                     cna_norm = cna_data_real*norm_factor;
                     rna_norm = log2(expr_data_real/median_expr_neut);
-                    fs = rna_norm'*cna_norm;
+                    fs = rna_norm*cna_norm';
                     if nargout > 3
-                        if corrfun
-                            [spearman_corr, spearman_p_val] = corr(rna_norm, cna_norm,'type','Spearman','rows','complete');
-                        else
-                            [spearman_corr, spearman_p_val] = FocalScan.spearcorr(rna_norm, cna_norm);
-                        end
+                        [tmp_c,tmp_p] = corrcoef(rna_norm, cna_norm,'rows','complete');
+                        pearson_corr = tmp_c(1,2);
+                        pearson_p_val = tmp_p(1,2);
                     end
                 end
             end
         end
         
-        function [fs, sum_cna,spearman_corr,spearman_p_val] = main_score_ratios(cna_data,rna_norm,n_tumors,n_max_nan,corrfun)
+        function [fs, sum_cna,pearson_corr,pearson_p_val] = main_score_ratios(cna_data,rna_norm,n_tumors,n_max_nan)
             idx_nan = isnan(cna_data) | isnan(rna_norm);
             n_nan = sum(idx_nan);
             
             fs = NaN;
             sum_cna = NaN;
-            spearman_corr = NaN;
-            spearman_p_val = NaN;
+            pearson_corr = NaN;
+            pearson_p_val = NaN;
             
             if n_nan <= n_max_nan % skip if to many NaN's
                 cna_data_real = cna_data(~idx_nan);
@@ -461,11 +442,9 @@ classdef FocalScan
                 
                 sum_cna = sum(cna_data_real)*norm_factor;
                 if nargout > 3
-                    if corrfun
-                        [spearman_corr, spearman_p_val] = corr(rna_norm, cna_norm,'type','Spearman','rows','complete');
-                    else
-                        [spearman_corr, spearman_p_val] = FocalScan.spearcorr(rna_norm, cna_norm);
-                    end
+                     [tmp_c,tmp_p] = corrcoef(rna_norm, cna_norm,'rows','complete');
+                     pearson_corr = tmp_c(1,2);
+                     pearson_p_val = tmp_p(1,2);
                 end
             end
         end
@@ -481,20 +460,6 @@ classdef FocalScan
             absX_le_absY = double(abs(X) <= abs(Y));
             
             fs = X.*absX_le_absY + Y.*~absX_le_absY;
-        end
-        
-        function [c,p] = spearcorr(a,b)
-            
-            % do not consider NaN elements
-            idx = isnan(a) | isnan(b);
-            a = a(~idx);
-            b = b(~idx);
-            
-            [~, index_a] = sort(a);
-            [~, index_b] = sort(b);
-            [C,P] = corrcoef(index_a, index_b);
-            c = C(1,2);
-            p = P(1,2);
         end
 
         function t = make_peak_table(T,level,varargin)
@@ -513,7 +478,6 @@ classdef FocalScan
                 level = 0.1;
             elseif level >= 1
                 level = 0.99;
-                %warning('peak level greater than or equal to 1, setting to 0.99'),
             end
 
             success = 0;
