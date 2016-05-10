@@ -75,12 +75,12 @@ classdef Expr < handle
                                     error('No gene identifiers matched the annotation. Please check that an appropriate genome annotation file has been provided.')
                                 end
                                 idx3 = strcmp(obj.sample_id, s.sample_id{i});
-                                obj.data(idx1, idx3) = expr.data(idx1, idx3) + single(expr_this{2}(idx2)); % If these is more than one sample or gene with the same name, add the values
+                                obj.data(idx1, idx3) = obj.data(idx1, idx3) + single(expr_this{2}(idx2)); % If these is more than one sample or gene with the same name, add the values
                             else
                                 disp(filename)
                                 expr_this = textscan(fid, '%*s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
                                 idx3 = strcmp(obj.sample_id, s.sample_id{i});
-                                obj.data(idx1, idx3) = expr.data(idx1, idx3) + single(expr_this{1}(idx2));
+                                obj.data(idx1, idx3) = obj.data(idx1, idx3) + single(expr_this{1}(idx2));
                             end
                             fclose(fid);
                         else
