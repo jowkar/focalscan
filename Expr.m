@@ -60,7 +60,7 @@ classdef Expr < handle
                                 error('%s could not be read. Does the file have a valid format?',filename)
                             end
                             
-                            if i == 1
+                            if n == 1
                                 if gene_level
                                     disp(filename)
                                     expr_this = textscan(fid, '%s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
