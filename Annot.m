@@ -107,33 +107,16 @@ classdef Annot < handle
                     if fid < 0
                         error('Could not open file %s',in)
                     end
-                    line = fgetl(fid);
-                    fclose(fid);
-                    isStrCol = isnan( str2double( regexp( line, '[^\t\s]+', 'match' )));
-                    fmt = cell( 1, numel(isStrCol) );
-                    fmt(isStrCol)  = {'%s'};
-                    fmt(~isStrCol) = {'%d'};
-                    fmt = [fmt{:}];
                         
                     filehandle = fopen(in);
-                    %s = textscan(filehandle,'%s %d %d %d%*[^\n]');
-                    s = textscan(filehandle,fmt);
+                    s = textscan(filehandle,'%s %d %d %d%*[^\n]');
                     obj.chr = s{1};
                     obj.start = s{2};
                     obj.stop = s{3};
                     obj.id = s{4};
                     
-                    if iscell(obj.chr)
-                        if isempty(regexp(obj.chr{1},'chr*', 'once'))
-                            %for i = 1:length(obj.chr)
-                            %    obj.chr{i} = ['chr' obj.chr{i}];
-                            %end
-                            obj.chr = strcat('chr',obj.chr);
-                        end
-                    elseif isnumeric(obj.chr)
-                        obj.chr = strcat('chr',strtrim(cellstr(num2str(obj.chr))));
-                    else
-                        error('Could not determine format of the first column in the annotation file.')
+                    if isempty(regexp(obj.chr{1},'chr*', 'once'))
+                        obj.chr = strcat('chr',obj.chr);
                     end
                 else
                     disp('Error: Annotation file needs to have the extension .bed or .gtf or be a struct.')
