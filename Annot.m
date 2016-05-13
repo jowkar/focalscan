@@ -122,11 +122,18 @@ classdef Annot < handle
                     obj.start = s{2};
                     obj.stop = s{3};
                     obj.id = s{4};
-
-                    if isempty(regexp(obj.chr{1},'chr*', 'once'))
-                        for i = 1:length(obj.chr)
-                            obj.chr{i} = ['chr' obj.chr{i}];
+                    
+                    if iscell(obj.chr)
+                        if isempty(regexp(obj.chr{1},'chr*', 'once'))
+                            %for i = 1:length(obj.chr)
+                            %    obj.chr{i} = ['chr' obj.chr{i}];
+                            %end
+                            obj.chr = strcat('chr',obj.chr);
                         end
+                    elseif isnumeric(obj.chr)
+                        obj.chr = strcat('chr',strtrim(cellstr(num2str(obj.chr))));
+                    else
+                        error('Could not determine format of the first column in the annotation file.')
                     end
                 else
                     disp('Error: Annotation file needs to have the extension .bed or .gtf or be a struct.')
