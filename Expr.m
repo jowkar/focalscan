@@ -80,7 +80,6 @@ classdef Expr < handle
                                 idx3 = strcmp(obj.sample_id, s.sample_id{i});
                                 obj.data(idx1, idx3) = obj.data(idx1, idx3) + single(expr_this{2}(idx2)); % If these is more than one sample or gene with the same name, add the values
                             elseif obj.params.fast_read
-                                disp(filename)
                                 if gene_level
                                     disp(filename)
                                     expr_this = textscan(fid, '%*s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
