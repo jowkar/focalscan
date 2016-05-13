@@ -49,7 +49,10 @@ classdef Expr < handle
                     obj.sample_id = unique(s.sample_id);
                     obj.data = zeros(length(annot.id), length(obj.sample_id), 'single');
                     
-                    disp('Assuming that all expresion data files have identical first columns (gene IDs)')
+                    if obj.params.fast_read
+                        disp('fast_read selected: assuming that all expresion data files have identical first columns (gene IDs).')
+                    end
+                    
                     n = 0;
                     for i = 1:length(s.name),
                         filename = [expr_path filesep s.name{i} file_extension];
@@ -60,7 +63,7 @@ classdef Expr < handle
                                 error('%s could not be read. Does the file have a valid format?',filename)
                             end
                             
-                            if n == 1
+                            if n == 1 || ~obj.params.fast_read
                                 if gene_level
                                     disp(filename)
                                     expr_this = textscan(fid, '%s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
@@ -68,7 +71,7 @@ classdef Expr < handle
                                     disp(filename)
                                     expr_this = textscan(fid, '%d%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
                                 end
-
+                                
                                 gene_ids = expr_this{1};
                                 [isect,idx1,idx2] = intersect(annot.id, gene_ids);
                                 if isempty(isect)
@@ -76,9 +79,15 @@ classdef Expr < handle
                                 end
                                 idx3 = strcmp(obj.sample_id, s.sample_id{i});
                                 obj.data(idx1, idx3) = obj.data(idx1, idx3) + single(expr_this{2}(idx2)); % If these is more than one sample or gene with the same name, add the values
-                            else
+                            elseif obj.params.fast_read
                                 disp(filename)
-                                expr_this = textscan(fid, '%*s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
+                                if gene_level
+                                    disp(filename)
+                                    expr_this = textscan(fid, '%*s%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
+                                else
+                                    disp(filename)
+                                    expr_this = textscan(fid, '%*d%d', 'delimiter', '\t','HeaderLines',0); %%{1} is tile_id and {2} is expression
+                                end
                                 idx3 = strcmp(obj.sample_id, s.sample_id{i});
                                 obj.data(idx1, idx3) = obj.data(idx1, idx3) + single(expr_this{1}(idx2));
                             end
@@ -135,6 +144,7 @@ classdef Expr < handle
             
             obj.datasource.input_combination = select_input_combination;
             
+            obj.params.fast_read = p.Results.fast_read;
             %obj.params.normalization = p.Results.normalization;
             
             function input_combination = select_input_combination()

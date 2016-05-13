@@ -302,7 +302,8 @@ classdef FocalScan
                 disp('Reading expression data')
                 obj.expr = Expr('annot',obj.annot,'expr_path',obj.datasource.expr_path,...
                     'index_file',obj.datasource.index_file,...
-                    'file_extension',obj.datasource.file_extension);
+                    'file_extension',obj.datasource.file_extension,...
+                    'fast_read',obj.params.fast_read);
                 obj.expr.data = Expr.normalize(obj.expr.data,obj.params.normalization,obj.params.percentile);
             elseif ismember(my_switch, [3 4])
                 disp('Reading expression data')
@@ -867,6 +868,7 @@ classdef FocalScan
             p.addParameter('only_focal',0, @isnumeric);
             p.addParameter('peak_figure',0, @isnumeric);
             p.addParameter('scorefield','fs_hp', @isstr);
+            p.addParameter('fast_read',0,@isnumeric);
             
             % parse parameters
             p.parse(varargin{:});
@@ -901,6 +903,7 @@ classdef FocalScan
             params.min_genes = p.Results.min_genes;
             params.only_focal = p.Results.only_focal;
             params.scorefield = p.Results.scorefield;
+            params.fast_read = p.Results.fast_read;
 
             output.peak_figure = p.Results.peak_figure;
             output.reportdir = p.Results.reportdir;
