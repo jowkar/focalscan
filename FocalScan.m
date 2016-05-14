@@ -33,6 +33,7 @@ classdef FocalScan
     %                    {0.0-1.0}
     %             'only_focal'                  ''              string
     %             'scorefield'                  'fs_hp'         string
+    %             'fast_read'                   0               numeric
 
     properties
         % input parameters
@@ -63,35 +64,35 @@ classdef FocalScan
     methods
         function obj = FocalScan(varargin)
             % Parse input arguments
-                [obj.params, obj.datasource, obj.output] = FocalScan.handle_input(varargin{:});
+            [obj.params, obj.datasource, obj.output] = FocalScan.handle_input(varargin{:});
 
-                % Write log file
-                mkdir(obj.output.reportdir)
-                logfile = [obj.output.reportdir filesep 'log.txt'];
-                if exist(logfile,'file') == 2
-                    delete(logfile)
-                end
-                diary(logfile)
-            
-                % Display parameter values
-                disp(obj.datasource)
-                disp(obj.params)
-                disp(obj.output)
+            % Write log file
+            mkdir(obj.output.reportdir)
+            logfile = [obj.output.reportdir filesep 'log.txt'];
+            if exist(logfile,'file') == 2
+                delete(logfile)
+            end
+            diary(logfile)
 
-                % Load data
-                obj = obj.read_data();
+            % Display parameter values
+            disp(obj.datasource)
+            disp(obj.params)
+            disp(obj.output)
 
-                if any(isnan(obj.expr.data))
-                    error('NaN present in expression data (not allowed).')
-                end
-                
-                % Set some additional internal parameters
-                sample = unique(obj.cna.sample_id);
-                obj.internal.n_tumors = length(sample);
-                obj.internal.n_max_nan = obj.internal.n_tumors*obj.params.max_nan;
+            % Load data
+            obj = obj.read_data();
 
-                % Run main program
-                obj = obj.main();
+            if any(isnan(obj.expr.data))
+                error('NaN present in expression data (not allowed).')
+            end
+
+            % Set some additional internal parameters
+            sample = unique(obj.cna.sample_id);
+            obj.internal.n_tumors = length(sample);
+            obj.internal.n_max_nan = obj.internal.n_tumors*obj.params.max_nan;
+
+            % Run main program
+            obj = obj.main();
             diary off
         end
         
@@ -398,7 +399,7 @@ classdef FocalScan
     
     methods (Static)
         function [fs, sum_cna,pearson_corr,pearson_p_val] = main_score(cna_data,expr_data,params,n_tumors,n_max_nan)
-            idx_nan = isnan(cna_data) | isnan(expr_data);
+            idx_nan = isnan(cna_data);% | isnan(expr_data);
             n_nan = sum(idx_nan);
             
             fs = NaN;
@@ -429,7 +430,7 @@ classdef FocalScan
         end
         
         function [fs, sum_cna,pearson_corr,pearson_p_val] = main_score_ratios(cna_data,rna_norm,n_tumors,n_max_nan)
-            idx_nan = isnan(cna_data) | isnan(rna_norm);
+            idx_nan = isnan(cna_data);% | isnan(rna_norm);
             n_nan = sum(idx_nan);
             
             fs = NaN;

@@ -69,6 +69,7 @@ then
 	$(tput bold)peak_level$(tput sgr0)                   $(tput smul)0.6$(tput rmul) {$(tput smul)0.0$(tput rmul)-$(tput smul)1.0$(tput rmul)}
 	$(tput bold)only_focal$(tput sgr0)                   $(tput smul)''$(tput rmul)
 	$(tput bold)scorefield$(tput sgr0)                   $(tput smul)fs_hp$(tput rmul)
+	$(tput bold)fast_read$(tput sgr0)		     $(tput smul)0$(tput rmul)
 
 "
     echo "$(tput bold)EXAMPLE:$(tput sgr0)

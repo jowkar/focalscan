@@ -107,9 +107,18 @@ classdef Annot < handle
                     if fid < 0
                         error('Could not open file %s',in)
                     end
-                        
-                    filehandle = fopen(in);
-                    s = textscan(filehandle,'%s %d %d %d%*[^\n]');
+                    
+                    f = textscan(fid,'%s',4,'delimiter','\t');
+                    fclose(fid);
+                    if isnan(str2double(f{1}{4})) % 4:th column is a string
+                        formatstring = '%s%d%d%s';
+                    else
+                        formatstring = '%s%d%d%d'; % 4:th column is a number
+                    end
+                    
+                    fid = fopen(in,'r');
+                    s = textscan(fid,formatstring,'delimiter','\t');
+                    fclose(fid);
                     obj.chr = s{1};
                     obj.start = s{2};
                     obj.stop = s{3};
