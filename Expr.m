@@ -18,6 +18,7 @@ classdef Expr < handle
     properties
         sample_id
         data
+        gene_id
     end
     
     properties (Hidden = true)
@@ -103,10 +104,11 @@ classdef Expr < handle
                     end
                     fprintf('Read %d samples\n',n);
                     obj.sample_id = Expr.make_valid_var_names(obj.sample_id);
+                    obj.gene_id = annot.id;
                 case 2 % csv formatted input
-                    [obj.data,obj.sample_id] = Expr.readcsv(obj.datasource.expr_csv);
+                    [obj.data,obj.sample_id,obj.gene_id] = Expr.readcsv(obj.datasource.expr_csv);
                 case 3 % csv formatted log2 ratios
-                    [obj.data,obj.sample_id] = Expr.readcsv(obj.datasource.expr_ratio_csv);
+                    [obj.data,obj.sample_id,obj.gene_id] = Expr.readcsv(obj.datasource.expr_ratio_csv);
                 otherwise
                     error('Invalid expression data input')
             end
@@ -234,12 +236,34 @@ classdef Expr < handle
             end
         end
         
-        function [data,samples] = readcsv(fname)
+        function [data,samples,gene_ids] = readcsv(fname)
+            % The first line should countain sample names.
+            
+            % Skip the first line and read the first column
+            fid = fopen(fname,'r');
+            firstline = fgetl(fid); % textscan will read the remaining lines
+            formatstr = '%s%*[^\n]'; % read only the first column
+            firstcolumn = textscan(fid,formatstr,'Delimiter',',');
+            fclose(fid);
+            firstcolumn_double = str2double(firstcolumn{1}(1:end));
+            skipfirst = 0;
+            if ~isnumeric(firstcolumn_double)
+                disp('First column of csv-file contained strings. Assuming that these are gene IDs.');
+                gene_ids = firstcolumn;
+                skipfirst = 1;
+            else
+                gene_ids = [];
+                disp('First column of csv-file contained only numbers. Assuming that rows (genes) correspond exactly to rows in the annotation file.');
+            end
+            
             fid = fopen(fname,'r');
             firstline = fgetl(fid); % textscan will read the remaining lines
             samples = textscan(firstline,'%s','Delimiter',',');
             samples = samples{1};
             formatstring = repmat('%f',1,length(samples));
+            if skipfirst
+               formatstring = ['%*s' formatstring]; 
+            end
             data = textscan(fid,formatstring,'Delimiter', ',', 'CollectOutput',true);
             data = single(data{1});
             fclose( fid );

@@ -31,13 +31,13 @@ classdef CNA < handle
                         tile_center{i} = (annot.start(tile_idx{i}) + annot.stop(tile_idx{i}))/2;
                     end
                     
-                    % map segmented copy-number data to genomic tiles, chromosome-wise
+                    % map segmented copy-number data to genomic tiles/genes, chromosome-wise
                     for i = 1:length(obj.sample_id)
                         idx = find(strcmp(seg.sample_id, obj.sample_id{i}));
                         for j = 1:length(idx)
-                            % now check what tiles are covered by segment j in seg.*
+                            % now check what tiles/genes are covered by segment j in *.seg
                             idx_chr = strcmp(chrs, seg.chr(idx(j)));
-                            % find tiles that are covered or partially covered by this segment
+                            % find tiles/genes that are covered or partially covered by this segment
                             % (based on tile center position, so that tiles will be assigned to
                             % whatever segment is covering the most)
                             idx_covered = tile_center{idx_chr} >= seg.start(idx(j)) & tile_center{idx_chr} <= seg.stop(idx(j));
@@ -47,7 +47,7 @@ classdef CNA < handle
                     
                     obj.gene_id = annot.id;
                 case 2 % csv input
-                    [obj.data,obj.sample_id] = Expr.readcsv(obj.datasource.cna_csv);
+                    [obj.data,obj.sample_id,obj.gene_id] = Expr.readcsv(obj.datasource.cna_csv);
                 otherwise
                     error('Invalid input')
             end

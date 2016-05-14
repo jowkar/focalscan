@@ -329,6 +329,24 @@ classdef FocalScan
                 end
             end
             
+            % remove non-shared genes from expr and cna
+            if ~isempty(obj.cna.gene_id) && ~isempty(obj.expr.gene_id)
+                [genes, idx1, idx2] = intersect(obj.cna.gene_id, obj.expr.gene_id);
+                if isempty(genes)
+                    error('No gene IDs in common between copy number and expression data.')
+                else
+                    obj.cna.data = obj.cna.data(idx1,:);
+                    obj.expr.data = obj.expr.data(idx2,:);
+                end
+            else
+               if size(obj.expr.data,1) ~= length(obj.annot.id)
+                   error('No gene IDs were present in the expression data and the number of rows did not correspond to the number of genes in the annotation.')
+               end
+               if size(obj.cna.data,1) ~= length(obj.annot.id)
+                   error('No gene IDs were present in the copy number data and the number of rows did not correspond to the number of genes in the annotation.')
+               end
+            end
+            
             % remove non-shared samples from expr and cna
             [samples, idx1, idx2] = intersect(obj.cna.sample_id, obj.expr.sample_id);
 
