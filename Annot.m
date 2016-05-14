@@ -128,14 +128,18 @@ classdef Annot < handle
                         obj.chr = strcat('chr',obj.chr);
                     end
                 else
-                    disp('Error: Annotation file needs to have the extension .bed or .gtf or be a struct.')
+                    error('Annotation file needs to have the extension .bed or .gtf or be a struct.')
                 end
             end
         end
 
         function gene_level = is_gene_level(obj)
             tile_distances = diff(obj.start);
+            if isempty(tile_distances) || any(isnan(tile_distances))
+                error('Wrong format on the start coordinate column in the annotation file.')
+            end
             is_chr_start = tile_distances ~= mode(tile_distances);
+            
             if (all(tile_distances(~is_chr_start) == mode(tile_distances))) && (sum(is_chr_start) == length(unique(obj.chr)) - 1) % all tile distances are the same except those of the first position on each chromosome
                 gene_level = 0;
             else

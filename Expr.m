@@ -11,6 +11,9 @@ classdef Expr < handle
     %             'index_file'                  ''              string
     %             'file_extension'              ''              string
     %             'annot'                       ''              Annot
+    %
+    %   [Additional options]
+    %             'fast_read'                   0               numeric
     
     properties
         sample_id
