@@ -977,7 +977,7 @@ classdef FocalScan
                 
                 if ~input_combination
                     disp(datasource)
-                    error('Incomplete or redundant specification of input data sources')
+                    error('Incomplete specification of input data sources')
                 end
             end
         end

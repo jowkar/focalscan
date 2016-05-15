@@ -253,7 +253,7 @@ classdef Expr < handle
                 skipfirst = 1;
             else
                 gene_ids = [];
-                disp('THe first column of the csv-file contained only numbers. Assuming that rows (genes) correspond exactly to rows in the annotation file.');
+                disp('The first column of the csv-file contained only numbers. Assuming that rows (genes) correspond exactly to rows in the annotation file.');
             end
             
             fid = fopen(fname,'r');
