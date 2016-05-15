@@ -248,12 +248,12 @@ classdef Expr < handle
             firstcolumn_double = str2double(firstcolumn{1}(1:end));
             skipfirst = 0;
             if ~isnumeric(firstcolumn_double)
-                disp('First column of csv-file contained strings. Assuming that these are gene IDs.');
+                disp('The first column of the csv-file contained strings. Assuming that these are gene IDs.');
                 gene_ids = firstcolumn;
                 skipfirst = 1;
             else
                 gene_ids = [];
-                disp('First column of csv-file contained only numbers. Assuming that rows (genes) correspond exactly to rows in the annotation file.');
+                disp('THe first column of the csv-file contained only numbers. Assuming that rows (genes) correspond exactly to rows in the annotation file.');
             end
             
             fid = fopen(fname,'r');

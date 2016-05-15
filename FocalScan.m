@@ -856,6 +856,8 @@ classdef FocalScan
         function [params, datasource, output] = handle_input(varargin)
             p = inputParser;
 
+            isnumericstr = @(x)isnumeric(x)|isnumeric(str2double(x));
+            
   %          p.addParameter('install_dir','./',@isstr);
   %          p.addParameter('current_dir','./',@isstr);
 
@@ -872,22 +874,22 @@ classdef FocalScan
             p.addParameter('annot_file', '', @isstr);
             
             % optional parameters
-            p.addParameter('window_size', 10e6, @isnumeric);
-            p.addParameter('neutral_thresh', 0.1, @isnumeric);
-            p.addParameter('min_neutral', 20, @isnumeric);
-            p.addParameter('pseudo_expr', 0, @isnumeric);
-            p.addParameter('pseudo_expr_relative', 10, @isnumeric);
-            p.addParameter('max_nan', 0.1, @isnumeric);
+            p.addParameter('window_size', 10e6, isnumericstr);
+            p.addParameter('neutral_thresh', 0.1, isnumericstr);
+            p.addParameter('min_neutral', 20, isnumericstr);
+            p.addParameter('pseudo_expr', 0, isnumericstr);
+            p.addParameter('pseudo_expr_relative', 10, isnumericstr);
+            p.addParameter('max_nan', 0.1, isnumericstr);
             p.addParameter('reportdir', '.', @isstr);
             p.addParameter('normalization', 'percentile', @isstr);
-            p.addParameter('percentile', 95, @isnumeric);
+            p.addParameter('percentile', 95, isnumericstr);
             p.addParameter('optional_gene_annot', '', @isstr);
-            p.addParameter('peak_level', 0.6, @isnumeric);
-            p.addParameter('min_genes', 0, @isnumeric);
-            p.addParameter('only_focal',0, @isnumeric);
-            p.addParameter('peak_figure',0, @isnumeric);
+            p.addParameter('peak_level', 0.6, isnumericstr);
+            p.addParameter('min_genes', 0, isnumericstr);
+            p.addParameter('only_focal',0, isnumericstr);
+            p.addParameter('peak_figure',0, isnumericstr);
             p.addParameter('scorefield','fs_hp', @isstr);
-            p.addParameter('fast_read',0,@isnumeric);
+            p.addParameter('fast_read',0,isnumericstr);
             
             % parse parameters
             p.parse(varargin{:});
@@ -910,24 +912,34 @@ classdef FocalScan
             datasource.cna_csv = p.Results.cna_csv;
             datasource.optional_gene_annot = p.Results.optional_gene_annot;
             
-            params.window_size = p.Results.window_size;
-            params.neutral_thresh = p.Results.neutral_thresh;
-            params.min_neutral = p.Results.min_neutral;
-            params.pseudo_expr = p.Results.pseudo_expr;
-            params.pseudo_expr_relative = p.Results.pseudo_expr_relative;
-            params.max_nan = p.Results.max_nan;
+            params.window_size = numstr2num(p.Results.window_size);
+            params.neutral_thresh = numstr2num(p.Results.neutral_thresh);
+            params.min_neutral = numstr2num(p.Results.min_neutral);
+            params.pseudo_expr = numstr2num(p.Results.pseudo_expr);
+            params.pseudo_expr_relative = numstr2num(p.Results.pseudo_expr_relative);
+            params.max_nan = numstr2num(p.Results.max_nan);
             params.normalization = p.Results.normalization;
-            params.percentile = p.Results.percentile;
-            params.peak_level = p.Results.peak_level;
-            params.min_genes = p.Results.min_genes;
-            params.only_focal = p.Results.only_focal;
+            params.percentile = numstr2num(p.Results.percentile);
+            params.peak_level = numstr2num(p.Results.peak_level);
+            params.min_genes = numstr2num(p.Results.min_genes);
+            params.only_focal = numstr2num(p.Results.only_focal);
             params.scorefield = p.Results.scorefield;
-            params.fast_read = p.Results.fast_read;
+            params.fast_read = numstr2num(p.Results.fast_read);
 
-            output.peak_figure = p.Results.peak_figure;
+            output.peak_figure = numstr2num(p.Results.peak_figure);
             output.reportdir = p.Results.reportdir;
 
             datasource.input_combination = select_input_combination();
+            
+            function num = numstr2num(numstr)
+                if isnumeric(numstr)
+                    num = numstr;
+                elseif isnumeric(str2double(numstr))
+                    num = str2double(numstr);
+                else
+                    error('At least one numeric input parameter was not numeric.')
+                end 
+            end
             
             function input_combination = select_input_combination()
                 expression_set_1 = {...

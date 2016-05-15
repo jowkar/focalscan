@@ -1,24 +1,28 @@
 function t = standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,out_file,varargin)
+    
+    isnumericstr = @(x)isnumeric(x)|isnumeric(str2double(x));
+
     p = inputParser;
     p.addRequired('report_file_path',@isstr)
     p.addRequired('annot_file_path',@isstr)
-    p.addRequired('peak_level',@isnumeric)
+    p.addRequired('peak_level',isnumericstr)
     expected_values = {'fs','fs_hp','sum_cna','sum_cna_hp','pearson_corr'};
     p.addRequired('scorefield',@(x) any(validatestring(x,expected_values)));
     p.addRequired('out_file',@isstr);
     p.addParameter('optional_gene_annot','',@isstr);
     
     p.addParameter('writedir', '', @isstr);
-    p.addParameter('do_plot', 0, @isnumeric);
-    p.addParameter('min_genes', 100, @isnumeric);
+    p.addParameter('do_plot', 0, isnumericstr);
+    p.addParameter('min_genes', 100, isnumericstr);
     p.addParameter('plot_dir', '', @isstr);
     
     p.parse(report_file_path,annot_file_path,peak_level,scorefield,out_file,varargin{:});
 
+    peak_level = numstr2num(p.Results.peak_level);
     optional_gene_annot = p.Results.optional_gene_annot;
     writedir = p.Results.writedir;
-    do_plot = p.Results.do_plot;
-    min_genes = p.Results.min_genes;
+    do_plot = numstr2num(p.Results.do_plot);
+    min_genes = numstr2num(p.Results.min_genes);
     plot_dir = p.Results.plot_dir;
     
     if peak_level > 1 || peak_level < 0
@@ -43,5 +47,15 @@ function t = standalone_peakdetection(report_file_path,annot_file_path,peak_leve
         end
         writetable(t,out_file,'Delimiter','\t','FileType','text','WriteVariableNames',1,'WriteRowNames',0);
         fprintf('Successfully wrote peak table to %s\n',out_file)
+    end
+    
+    function num = numstr2num(numstr)
+        if isnumeric(numstr)
+            num = numstr;
+        elseif isnumeric(str2double(numstr))
+            num = str2double(numstr);
+        else
+            error('At least one numeric input parameter was not numeric.')
+        end
     end
 end
