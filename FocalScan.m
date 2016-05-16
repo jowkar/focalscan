@@ -63,6 +63,10 @@ classdef FocalScan
     
     methods
         function obj = FocalScan(varargin)
+	    v = version;
+	    if str2double(v(1:3)) < 8
+	        warning('This matlab version may be too old to run this program sucessfully.')
+	    end
             % Parse input arguments
             [obj.params, obj.datasource, obj.output] = FocalScan.handle_input(varargin{:});
 
