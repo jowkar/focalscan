@@ -247,9 +247,9 @@ classdef Expr < handle
             fclose(fid);
             firstcolumn_double = str2double(firstcolumn{1}(1:end));
             skipfirst = 0;
-            if ~isnumeric(firstcolumn_double)
+            if ~isnumeric(firstcolumn_double) | any(isnan(firstcolumn_double))
                 disp('The first column of the csv-file contained strings. Assuming that these are gene IDs.');
-                gene_ids = firstcolumn;
+                gene_ids = [firstcolumn{:}];
                 skipfirst = 1;
             else
                 gene_ids = [];

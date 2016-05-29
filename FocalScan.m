@@ -4,36 +4,79 @@ classdef FocalScan
     %
     %             Parameter:                    Default:    Type:
     %
-    %   [Basic options]
+    %   [Input]
     %             'expr_csv'                    ''              string
     %             'seg_file'                    ''              string
     %             'annot_file'                  ''              string
-    %             
-    %   [Alternative input options for expression data]
     %             'expr_path'                   ''              string
     %             'index_file'                  ''              string
     %             'file_extension'              ''              string
-    %             'expr_ratio_csv'              ''              string
+    %             'optional_gene_annot'         ''              string
+    %             'fast_read'                   0               numeric
     %             
-    %   [Additional options]
+    %   [Normalization]
+    %             'normalization'               'percentile'    string
+    %                    {'percentile'
+    %                     'library_size'
+    %                     'none'}
+    %             'percentile'                  95              numeric
+    %
+    %   [Score calculation]
     %             'window_size'                 10e6            numeric
     %             'neutral_thresh'              0.1             numeric
     %             'min_neutral'                 20              numeric
     %             'pseudo_expr'                 ''              numeric
     %             'pseudo_expr_relative         10              numeric
     %             'max_nan'                     0.1             numeric
+    %
+    %   [Output and peak detection]
     %             'reportdir'                   '.'             string
-    %             'normalization'               'percentile'    string
-    %                    {'percentile'
-    %                    'library_size'
-    %                    'none'}
-    %             'percentile'                  95              numeric
-    %             'optional_gene_annot'         ''              string
     %             'peak_level'                  0.6             numeric
     %                    {0.0-1.0}
     %             'only_focal'                  ''              string
     %             'scorefield'                  'fs_hp'         string
-    %             'fast_read'                   0               numeric
+    %    
+    % PARAMETER DESCRIPTIONS:
+    %
+    %    'annot_file': Gene annotation or tile definition file in .bed format.
+    %
+    %    'expr_csv': Path to a CSV file containing unnormalized expression data. Columns are expected to correspond to samples and rows to genes. The columns should be titled with sample IDs. (Only for gene-level analysis)
+    %
+    %    'expr_path': Path to directory containing files with gene or tile level count data for all samples (given in separate files)
+    %
+    %    'fast_read': When set to 1 and separate read count files are used, will assume that all files have identical first columns (gene IDs) in order to speed up reading of these.
+    %
+    %    'file_extension': The file extension of the gene or tile-level expression files.
+    %        # {expr path, index file, file extension}: Need to be specified together.
+    %
+    %    'index_file': File that links expression data files to sample IDs
+    %
+    %    'max_nan': Maximum proportion of missing values to accept for a given gene/tile
+    %
+    %    'neutral_thresh': Absolute copy number amplitude threshold for defining neutral samples
+    %
+    %    'normalization': The normalization mode to employ
+    %
+    %    'only_focal': When set to 1, will avoid additional calculation of scores without the focality filter (will speed up execution).
+    %
+    %    'optional_gene_annot': When tile-level analysis is performed, providing a gene annotation via this option will enable annotation of the reported peak tiles with respect to overlapping genes.
+    %
+    %    'peak_level': Sets the granularity of the peak detection method. A high value will cause only the most prominent peaks to be reported. A low value will cause additional, less prominent, peaks to be reported.
+    %
+    %    'percentile': The percentile to use when percentile normalization is employed. For instance, '95' will normalize to the median of the top 5 percent most highly expressed genes in each sample
+    %
+    %    'pseudo_expr': Pseudo expression value to add (needed to avoid division with zero when calculating ratios)
+    %
+    %    'pseudo_expr_relative': The pseudo expression value can be specified relative to the median of all non-zero expression values. This parameter defined the relation between the pseudo count and this median. For instance, a value of 10 sets the pseudo count to 10 times the median.
+    %
+    %    'reportdir': Directory in which to store output files
+    %
+    %    'scorefield': The metric to use as basis for peak detection.
+    %
+    %    'seg_file': File containing segmented copy number data for all samples 
+    %
+    %    'window_size': Window size used by the focality filter 
+
 
     properties
         % input parameters
@@ -340,7 +383,17 @@ classdef FocalScan
                     error('No gene IDs in common between copy number and expression data.')
                 else
                     obj.cna.data = obj.cna.data(idx1,:);
+                    obj.cna.gene_id = obj.cna.gene_id(idx1);
                     obj.expr.data = obj.expr.data(idx2,:);
+                    obj.expr.gene_id = obj.expr.gene_id(idx2);
+                    [genes,~,idx2] = intersect(obj.cna.gene_id,obj.annot.id);
+                    if isempty(genes)
+                        error('No genes were in common between the copy data and the annotation file.')
+                    end
+                    obj.annot.id = obj.annot.id(idx2);
+                    obj.annot.chr = obj.annot.chr(idx2);
+                    obj.annot.start = obj.annot.start(idx2);
+                    obj.annot.stop = obj.annot.stop(idx2);
                 end
             else
                if size(obj.expr.data,1) ~= length(obj.annot.id)
