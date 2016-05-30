@@ -37,11 +37,11 @@ Recommended for visualizing the results:
 # 1. Installation
 
 1) Download the files. Example data can be found at:
-- Annotation files: https://transfer.sh/sPGr0/annotation.zip
-- Gene expression and copy number data: https://transfer.sh/xTyCb/example-data.zip
+- Annotation files: https://transfer.sh/WkoKP/annotation.zip
+- Gene expression and copy number data: https://transfer.sh/sbL4L/example-data.zip
 
 To download the above files via the command line, use for instance (on Linux/Mac):
-```curl https://transfer.sh/bpzCa/annotation.zip -o annotation.zip```
+```curl https://transfer.sh/WKoKP/annotation.zip -o annotation.zip```
 
 2) Add execution permissions to the shell scripts by entering the directory and typing ```chmod +x *.sh```. (On Unix/Linux).
 
