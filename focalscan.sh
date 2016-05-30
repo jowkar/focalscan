@@ -59,7 +59,7 @@ echo "$(tput bold)GENERAL USAGE INFO:$(tput sgr0)
 
     $(tput bold)-$(tput sgr0) To perform a tile-level analysis, use the included file hg18_hg19_1kb_tiles.bed as annotation
 
-    $(tput bold)-$(tput sgr0) For tile-level analysys, also remember to specify the parameter "optional_gene_annot" and give the path to a standard gene annotation file (BED format) in order to report which genes overlap each tile in the final peak report."
+    $(tput bold)-$(tput sgr0) For tile-level analysis, also remember to specify the parameter "optional_gene_annot" and give the path to a standard gene annotation file (BED format) in order to report which genes overlap each tile in the final peak report."
 echo
 echo "$(tput bold)PARAMETERS:$(tput sgr0)"
 echo "
