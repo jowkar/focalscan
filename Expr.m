@@ -203,9 +203,34 @@ classdef Expr < handle
                         div = 20;
                     end
                     for i = 1:num_samples % for each sample
-                        norm_fact = sort(data(:, i), 'descend');
+                        norm_fact = sort(data(:,i), 'descend');
                         norm_fact = median(norm_fact(1:ceil(end/div)));
                         if norm_fact == 0
+                            warning('All genes in sample %d have 0 reads',i)
+                            data(:, i) = 0;
+                        else
+                            data(:, i) = data(:, i)/norm_fact;
+                        end
+                    end
+                case 'percentile_new'
+                    if nargin >= 3
+                        percentile = varargin{1};
+                        div = 100/(100-percentile);
+                    else
+                        div = 20;
+                    end
+                    for i = 1:num_samples % for each sample
+                        d = data(:,i);
+                        d = d(d>0);
+                        norm_fact = sort(d, 'descend');
+                        norm_fact = median(norm_fact(1:ceil(end/div)));
+                        if all(d==0)
+                            warning('All genes in sample %d have 0 reads',i)
+                            data(:,i) = 0;
+                        elseif isnan(norm_fact)
+                            warning('Could not calculate a normalization factor for sample %d. Setting all genes of this sample to 0.',i)
+                            data(:,i) = 0;
+                        elseif norm_fact == 0
                             warning('All genes in sample %d have 0 reads',i)
                             data(:, i) = 0;
                         else
