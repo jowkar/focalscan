@@ -10,14 +10,14 @@ then
 #        echo "Main file found. Temporarily adding current directory to PATH."
         export PATH="$PATH":"$(pwd)"
     else
-        echo "The necessary files were not found in the current directory. Please manually add the directory countaining the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
+        echo "The necessary files were not found in the current directory. Please manually add the directory containing the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
         exit $?
     fi
 
     install_dir=$(echo "$PATH" | tr : '\n' | grep focalscan)
     if [ -z "$install_dir" ]
     then
-        echo "Failed adding current directory to PATH, for unknown reasons. Please manually add the directory countaining the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
+        echo "Failed adding current directory to PATH, for unknown reasons. Please manually add the directory containing the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
         exit $?
     fi
 fi

@@ -206,13 +206,16 @@ classdef Expr < handle
                         norm_fact = sort(data(:,i), 'descend');
                         norm_fact = median(norm_fact(1:ceil(end/div)));
                         if norm_fact == 0
-                            warning('All genes in sample %d have 0 reads',i)
+                            if all(data(:,i)==0)
+                                warning('All genes in sample %d have 0 reads',i)
+                            end
                             data(:, i) = 0;
                         else
                             data(:, i) = data(:, i)/norm_fact;
                         end
                     end
-                case 'percentile_new'
+                case 'percentile_expressed'
+                    % Same as percentile, but only considering genes with reads
                     if nargin >= 3
                         percentile = varargin{1};
                         div = 100/(100-percentile);
@@ -241,6 +244,7 @@ classdef Expr < handle
                     % Do nothing
                 case 'library_size'
                     norm_fact = sum(data,1);
+                    norm_fact(norm_fact==0) = 1; % avoid Inf from division by zero
                     if length(norm_fact) ~= num_samples
                         error('Size of normalization factor does not correspond to the number of samples.')
                     end

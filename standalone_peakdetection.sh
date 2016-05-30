@@ -10,7 +10,7 @@ then
 #        echo "Main file found. Temporarily adding current directory to PATH."
         export PATH="$PATH":"$(pwd)"
     else
-        echo "The necessary files were not found in the current directory. Please manually add the directory countaining the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
+        echo "The necessary files were not found in the current directory. Please manually add the directory containing the FocalScan files to PATH by typing: export PATH=\$PATH:path_to/focalscan"
         exit $?
     fi
 

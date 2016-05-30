@@ -17,6 +17,7 @@ classdef FocalScan
     %   [Normalization]
     %             'normalization'               'percentile'    string
     %                    {'percentile'
+    %                     'percentile_expressed'
     %                     'library_size'
     %                     'none'}
     %             'percentile'                  95              numeric
