@@ -77,7 +77,7 @@ Using the shell scripts:
     **Annotation files:**
 
     ```shell
-    https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
+    https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
     ```
 
     **Test data:**
@@ -157,7 +157,7 @@ Mac/Linux, compiled executable
     **Annotation files:**
 
     ```shell
-    https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
+    https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
     ```
 
     **Test data:**
@@ -194,7 +194,7 @@ Any platform, usage from within the MATLAB environment
     **Annotation files:**
 
     ```
-    https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
+    https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
     ```
 
     **Test data:**
