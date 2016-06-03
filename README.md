@@ -169,7 +169,7 @@ Mac/Linux, compiled executable
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation direc- tory of the MATLAB compiler runtime and path to focalscan for the installation directory of FocalScan (obtained from step 3 above) (all in one line):
 
     ```shell
-    focalscan_compiled.sh MCR_root expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan MCR_root expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
     This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
@@ -319,7 +319,7 @@ FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_
 - With the compiled executable (no MATLAB installation)
 
 ```shell
-focalscan_compiled.sh <MCR_root> <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
+focalscan <MCR_root> <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
 ```
 
 where <MCR_root> is the path to the MATLAB runtime (v901, downloaded by the included installer).
@@ -373,7 +373,7 @@ standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,
 Or the compiled version 
 
 ```shell
-standalone_peakdetection_compiled.sh <MCR_root> example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt
+standalone_peakdetection.sh <MCR_root> example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt
 ```
 
 Annotating a tile peak report:
@@ -391,4 +391,4 @@ Example:
 annotate_peaks.sh peaks.txt annotation/gencode17_symbols.bed peaks_annotated.txt
 ```
 
-The compiled version is named "annotate_peaks_compiled.sh".
+The corresponding compiled version is named "annotate_peaks" (without .sh).
