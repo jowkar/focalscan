@@ -68,27 +68,33 @@ Using the shell scripts:
 
 4. Add permissions to execute the shell scripts:
 
-    ```chmod +x *.sh```
+    ```shell
+    chmod +x *.sh
+    ```
 
 5. Download and unzip example data to test the installation with, available at the following links:
 
     _Annotation files:_
 
-    ```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+    ```shell
+    https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
+    ```
 
     _Test data:_
 
-    ```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+    ```shell
+    https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+    ```
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
 
-    ```
-    path_to_focalscan/focalscan.sh expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+    ```shell
+    focalscan.sh expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
 7. Inspect the output:
 
-    ```
+    ```shell
     cat test_gene/peaks.txt
     ```
 
@@ -116,17 +122,19 @@ Mac/Linux, compiled executable
 
 2. Open the terminal application and unarchive the file:
 
-    ```unzip FocalScan_compiled_Linux.zip```
+    ```shell
+    unzip FocalScan_compiled_Linux.zip
+    ```
 
 3. Install the MATLAB runtime (it is important that the runtime is the correct version, in this case v901):
 
-    ```
+    ```shell
     cd FocalScan_compiled_Linux
     ./Installer.install
     ```
     or
 
-    ```
+    ```shell
     cd FocalScan_compiled_Mac
     ./Installer.app
     ```
@@ -134,64 +142,84 @@ Mac/Linux, compiled executable
 
     4. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan):
 
-    ```export PATH=$PATH:path_to_focalscan```
+    ```shell
+    export PATH=$PATH:path_to_focalscan
+    ```
 
     Example:
 
-    ```export PATH=$PATH:/Applications/FocalScan/application```
+    ```shell
+    export PATH=$PATH:/Applications/FocalScan/application
+    ```
 
 5. Download and unzip example data to test the installation with, available at the following links:
 
     _Annotation files:_
 
-    ```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+    ```shell
+    https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
+    ```
 
     _Test data:_
 
-    ```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+    ```shell
+    https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+    ```
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation direc- tory of the MATLAB compiler runtime and path to focalscan for the installation directory of FocalScan (obtained from step 3 above) (all in one line):
 
-    ```
-    path_to_focalscan/focalscan_compiled.sh MCR_root expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+    ```shell
+    focalscan_compiled.sh MCR_root expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
     This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
 
 7. Inspect the output:
 
-    ```cat test_gene/peaks.txt```
+    ```shell
+    cat test_gene/peaks.txt
+    ```
 
 Any platform, usage from within the MATLAB environment
 ------------------------------------------------------
 
 1. Open the terminal application and download the scripts (assuming that git is installed, otherwise just download the zip file):
 
-    ```git clone git@github.com:jowkar/focalscan.git```
+    ```shell
+    git clone git@github.com:jowkar/focalscan.git
+    ```
 
 2. Download and unzip example data to test the installation with, available at the following links:
 
     _Annotation files:_
 
-    ```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+    ```
+    https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
+    ```
 
     _Test data:_
 
-    ```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+    ```
+    https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+    ```
 
 3. Open MATLAB and add the scripts to the MATLAB path (will have to re- peated each time MATLAB is opened, unless the startup settings are also changed):
 
-    ```addpath(genpath('path_to_focalscan'))```
+    ```MATLAB
+    addpath(genpath('path_to_focalscan'))
+    ```
 
     Example: 
 
-    ```addpath(genpath('~/focalscan'))```
+    ```MATLAB
+    addpath(genpath('~/focalscan'))
+    ```
 
     (If focalscan was downloaded to the home directory on Linux/Mac)
 
 4. Test the installation (gene-level analysis on breast cancer data from TCGA):
 
-    ```
+    ```MATLAB
     FocalScan.sh('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
     ```
 
@@ -243,7 +271,7 @@ Use HTSeq or equivalent to obtain gene read counts for each sample.
 
 Tile-level analysis:
 --------------------
-```
+```shell
 ./quantify_tiles.sh <BAM_file> annotation/hg18_hg19_1kb_tiles.bed
 ```
 This needs to be done for each .bam file, preferably in parallell to speed up processing.
@@ -261,34 +289,38 @@ quality reads (e.g. quality 255 only for TopHat alignments, by running 'samtools
 
 
 - Using the shell scripts:
-```
+```shell
 ./focalscan.sh <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
 ```
 Example:
 
 Using CSV input:
-```
+```shell
 ./focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed
 ```
 
 Using separate read count files for each sample:
-```
+```shell
 ./focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .gene_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
 ```
 Tile-level analysis:
-```
+```shell
 ./focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .tile_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
 ```
 - From within MATLAB:
-```
+```MATLAB
 FocalScan('parameter1','parameter1_value',...,'parameterN','parameterN_value')
 ```
 Example:
-```FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed')```
+```MATLAB
+FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed')
+```
 
 - With the compiled executable (no MATLAB installation)
 
-```./focalscan_compiled.sh <MCR_root> <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>```
+```shell
+focalscan_compiled.sh <MCR_root> <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
+```
 
 where <MCR_root> is the path to the MATLAB runtime (v901, downloaded by the included installer).
 
@@ -328,25 +360,35 @@ Valid options for the "scorefield" parameter (the metric to use as basis for pea
 
 Example:
 
-```standalone_peakdetection.sh example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt```
+```shell
+standalone_peakdetection.sh example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt
+```
 
 Or the MATLAB function:
 
-```standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,out_file)```
+```shell
+standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,out_file)
+```
 
 Or the compiled version 
 
-```standalone_peakdetection_compiled.sh <MCR_root> example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt```
+```shell
+standalone_peakdetection_compiled.sh <MCR_root> example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt
+```
 
 Annotating a tile peak report:
 ------------------------------
 
 By default, the program will not write the IDs of genes overlapping the tiles in the output report unless a separate gene annotation file was added with the parameter "optional_gene_annot". To add this information afterwards the script "annotate_peaks.sh" can be used:
 
-```annotate_peaks.sh peak_file_path annot_file_path out_file```
+```shell
+annotate_peaks.sh peak_file_path annot_file_path out_file
+```
 
 Example:
 
-```annotate_peaks.sh peaks.txt annotation/gencode17_symbols.bed peaks_annotated.txt```
+```shell
+annotate_peaks.sh peaks.txt annotation/gencode17_symbols.bed peaks_annotated.txt
+```
 
 The compiled version is named "annotate_peaks_compiled.sh".
