@@ -63,6 +63,8 @@ export PATH=$PATH:~/bin/MATLAB_R2016a/bin
 ```
 
 The above paths will differ depending on system and where the respective applications were installed by the user.
+
+
 3. *Optional:* To avoid having to type the commands in the previous step every time the tool is run, add those commands to the ∼/.bashrc or ∼/.bash profile file (depending on the operating system).
 
 4. Add permissions to execute the shell scripts:
