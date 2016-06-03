@@ -21,7 +21,7 @@ Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM prefer
 
 Required software:
 
-- MATLAB
+- MATLAB (unless the compiled executable is uesd)
 
 Recommeded for pre-processing expression data:
 
@@ -50,14 +50,14 @@ Using the shell scripts:
 
 2. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan) and path to matlab for the directory where MATLAB is installed (for in- stance, ∼/bin/MATLAB 2015b/bin/)):
 
-```
+```shell
 export PATH=$PATH:path_to_focalscan
 export PATH=$PATH:path_to_matlab
 ```
 
 Example:
 
-```
+```shell
 export PATH=$PATH:~/focalscan
 export PATH=$PATH:~/bin/MATLAB_R2016a/bin
 ```
