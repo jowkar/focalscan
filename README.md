@@ -68,137 +68,134 @@ Using the shell scripts:
 
 4. Add permissions to execute the shell scripts:
 
-```chmod +x *.sh```
+    ```chmod +x *.sh```
 
 5. Download and unzip example data to test the installation with, available at the following links:
 
-_Annotation files:_
+    _Annotation files:_
 
-```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+    ```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
 
-_Test data:_
+    _Test data:_
 
-```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+    ```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
 
-```
-path_to_focalscan/focalscan.sh expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
-```
+    ```
+    path_to_focalscan/focalscan.sh expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+    ```
 
 7. Inspect the output:
 
-```
-cat test_gene/peaks.txt
-```
+    ```
+    cat test_gene/peaks.txt
+    ```
 
-This should list the top ranking genes:
+    This should list the top ranking genes:
 
-```
-Id  Score   Sum_CNA_HP  Chr Start   Stop
-ERBB2   942.124267578125    262.793273925781    37844167    37886679
-CCND1   447.170532226562    220.362243652344    69455855    69469242
-WHSC1L1 440.08837890625 202.27294921875 chr8    38132544    38239790
-EGFR    129.50341796875 21.137996673584 chr7 55086714   55324313
-TRAF4   117.803070068359    80.5899887084961    chr17   27071002    27077974
-IGF1R   116.806274414062    26.7439022064209    chr15   99192200    99507759
-FGFR2   96.7242736816406    24.9825992584229    chr10   123237848   123357972
-CCNE1   83.940673828125 27.0290393829346    chr19   30302805    30315215
-PHGDH   80.3051528930664    20.5632972717285    chr1    120202421   120286838
+    ```
+    Id  Score   Sum_CNA_HP  Chr Start   Stop
+    ERBB2   942.124267578125    262.793273925781    37844167    37886679
+    CCND1   447.170532226562    220.362243652344    69455855    69469242
+    WHSC1L1 440.08837890625 202.27294921875 chr8    38132544    38239790
+    EGFR    129.50341796875 21.137996673584 chr7 55086714   55324313
+    TRAF4   117.803070068359    80.5899887084961    chr17   27071002    27077974
+    IGF1R   116.806274414062    26.7439022064209    chr15   99192200    99507759
+    FGFR2   96.7242736816406    24.9825992584229    chr10   123237848   123357972
+    CCNE1   83.940673828125 27.0290393829346    chr19   30302805    30315215
+    PHGDH   80.3051528930664    20.5632972717285    chr1    120202421   120286838
+    ```
 
-```
-
-Also available in the in the output are a full report with detailed statistics and .wig files that can be visualized with IGV, containing full tracks with scores, copy number amplitudes and mean expression levels of all genes.
-
+    Also available in the in the output are a full report with detailed statistics and .wig files that can be visualized with IGV, containing full tracks with scores, copy number amplitudes and mean expression levels of all genes.
 
 Mac/Linux, compiled executable
 ------------------------------
-
 
 1. Download the file titled FocalScan compiled Linux.zip or FocalScan compiled Mac.zip.
 
 2. Open the terminal application and unarchive the file:
 
-```unzip FocalScan_compiled_Linux.zip```
+    ```unzip FocalScan_compiled_Linux.zip```
 
 3. Install the MATLAB runtime (it is important that the runtime is the correct version, in this case v901):
 
-```
-cd FocalScan_compiled_Linux
-./Installer.install
-```
-or
+    ```
+    cd FocalScan_compiled_Linux
+    ./Installer.install
+    ```
+    or
 
-```
-cd FocalScan_compiled_Mac
-./Installer.app
-```
-This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. Note also that the program files will be located in a subdirectory named “application”. I should also be noted that remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
+    ```
+    cd FocalScan_compiled_Mac
+    ./Installer.app
+    ```
+    This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. Note also that the program files will be located in a subdirectory named “application”. I should also be noted that remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
 
-4. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan):
+    4. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan):
 
-```export PATH=$PATH:path_to_focalscan```
+    ```export PATH=$PATH:path_to_focalscan```
 
-Example:
+    Example:
 
-```export PATH=$PATH:/Applications/FocalScan/application```
+    ```export PATH=$PATH:/Applications/FocalScan/application```
 
 5. Download and unzip example data to test the installation with, available at the following links:
 
-_Annotation files:_
+    _Annotation files:_
 
-```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+    ```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
 
-_Test data:_
+    _Test data:_
 
-```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+    ```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation direc- tory of the MATLAB compiler runtime and path to focalscan for the installation directory of FocalScan (obtained from step 3 above) (all in one line):
 
-```
-path_to_focalscan/focalscan_compiled.sh MCR_root expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
-```
+    ```
+    path_to_focalscan/focalscan_compiled.sh MCR_root expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+    ```
 
-This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
+    This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
 
 7. Inspect the output:
 
-```cat test_gene/peaks.txt```
+    ```cat test_gene/peaks.txt```
 
 Any platform, usage from within the MATLAB environment
 ------------------------------------------------------
 
 1. Open the terminal application and download the scripts (assuming that git is installed, otherwise just download the zip file):
 
-```git clone git@github.com:jowkar/focalscan.git```
+    ```git clone git@github.com:jowkar/focalscan.git```
 
 2. Download and unzip example data to test the installation with, available at the following links:
 
-_Annotation files:_
+    _Annotation files:_
 
-```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+    ```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
 
-_Test data:_
+    _Test data:_
 
-```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+    ```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
 
 3. Open MATLAB and add the scripts to the MATLAB path (will have to re- peated each time MATLAB is opened, unless the startup settings are also changed):
 
-```addpath(genpath('path_to_focalscan'))```
+    ```addpath(genpath('path_to_focalscan'))```
 
-Example: 
+    Example: 
 
-```addpath(genpath('~/focalscan'))```
+    ```addpath(genpath('~/focalscan'))```
 
-(If focalscan was downloaded to the home directory on Linux/Mac)
+    (If focalscan was downloaded to the home directory on Linux/Mac)
 
 4. Test the installation (gene-level analysis on breast cancer data from TCGA):
 
-```
-FocalScan.sh('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
-```
+    ```
+    FocalScan.sh('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
+    ```
 
-This might take up to 40 minutes or slightly longer, depending on proces- sor speed and available memory. The results will be saved to the directory “test gene”.
+    This might take up to 40 minutes or slightly longer, depending on proces- sor speed and available memory. The results will be saved to the directory “test gene”.
 
 # 2. Input files
 
@@ -207,18 +204,18 @@ RNA-seq data should be provided as read counts per gene/tile. Gene-level read co
 Two FocalScan expression data input options exist:
 --------------------------------------------------
 
-1) A CSV-file with samples as columns and genes as rows.
+1. A CSV-file with samples as columns and genes as rows.
 
-2) A combination of the following:
+2. A combination of the following:
     - The path to a directory containing separate read count files for each sample
     - An index file mapping the file names in this directory to sample names
     - The file extension (for instance ".gene_counts") of the read count files in this directory
 
-The index file is a tab-delimited file connecting read count files (excluding the file extension) and tumor ID's:
-```
-RNA-seqfilename1    tumorID1
-RNA-seqfilename2    tumorID2
-```
+    The index file is a tab-delimited file connecting read count files (excluding the file extension) and tumor ID's:
+    ```
+    RNA-seqfilename1    tumorID1
+    RNA-seqfilename2    tumorID2
+    ```
 
 Segmented copy-number data should be provided as a single .seg file with data for all tumors.
 ---------------------------------------------------------------------------------------------
