@@ -36,16 +36,169 @@ Recommended for visualizing the results:
 
 # 1. Installation
 
-1) Download the files. Example data can be found at:
-- Annotation files: https://transfer.sh/WkoKP/annotation.zip
-- Gene expression and copy number data: https://transfer.sh/sbL4L/example-data.zip
+There are three main ways in which this tool can be run:
 
-To download the above files via the command line, use for instance (on Linux/Mac):
-```curl https://transfer.sh/WKoKP/annotation.zip -o annotation.zip```
+- Using the shell scripts (Linux/Mac, MATLAB 2015b or later)
+- Using the compiled executable (Linux/Mac)
+- From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2015b or later)
 
-2) Add execution permissions to the shell scripts by entering the directory and typing ```chmod +x *.sh```. (On Unix/Linux).
+Using the shell scripts:
+------------------------
 
-3) Either run the program from the same directory, or add the directory to the path (```export /path/to/FocalScan``` (Unix/Linux) or ```addpath(genpath('path/to/FocalScan'))``` (from within MATLAB)).
+1. Open the terminal application and download the scripts:
+```git clone git@github.com:jowkar/focalscan.git```
+
+2. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan) and path to matlab for the directory where MATLAB is installed (for in- stance, ∼/bin/MATLAB 2015b/bin/)):
+
+```
+export PATH=$PATH:path_to_focalscan
+export PATH=$PATH:path_to_matlab
+```
+
+Example:
+
+```
+export PATH=$PATH:~/focalscan
+export PATH=$PATH:~/bin/MATLAB_R2016a/bin
+```
+
+The above paths will differ depending on system and where the respective applications were installed by the user.
+
+3. *Optional:* To avoid having to type the commands in the previous step every time the tool is run, add those commands to the ∼/.bashrc or ∼/.bash profile file (depending on the operating system).
+
+4. Add permissions to execute the shell scripts:
+
+```chmod +x *.sh```
+
+5. Download and unzip example data to test the installation with, available at the following links:
+
+_Annotation files:_
+
+```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+
+_Test data:_
+
+```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+
+6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
+
+```
+path_to_focalscan/focalscan.sh expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+```
+
+7. Inspect the output:
+
+```
+cat test_gene/peaks.txt
+```
+
+This should list the top ranking genes:
+
+```
+Id  Score   Sum_CNA_HP  Chr Start   Stop
+ERBB2   942.124267578125    262.793273925781    37844167    37886679
+CCND1   447.170532226562    220.362243652344    69455855    69469242
+WHSC1L1 440.08837890625 202.27294921875 chr8    38132544    38239790
+EGFR    129.50341796875 21.137996673584 chr7 55086714   55324313
+TRAF4   117.803070068359    80.5899887084961    chr17   27071002    27077974
+IGF1R   116.806274414062    26.7439022064209    chr15   99192200    99507759
+FGFR2   96.7242736816406    24.9825992584229    chr10   123237848   123357972
+CCNE1   83.940673828125 27.0290393829346    chr19   30302805    30315215
+PHGDH   80.3051528930664    20.5632972717285    chr1    120202421   120286838
+
+```
+
+Also available in the in the output are a full report with detailed statistics and .wig files that can be visualized with IGV, containing full tracks with scores, copy number amplitudes and mean expression levels of all genes.
+
+
+Mac/Linux, compiled executable
+------------------------------
+
+
+1. Download the file titled FocalScan compiled Linux.zip or FocalScan compiled Mac.zip.
+
+2. Open the terminal application and unarchive the file:
+
+```unzip FocalScan_compiled_Linux.zip```
+
+3. Install the MATLAB runtime (it is important that the runtime is the correct version, in this case v901):
+
+```
+cd FocalScan_compiled_Linux
+./Installer.install
+```
+or
+
+```
+cd FocalScan_compiled_Mac
+./Installer.app
+```
+This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. Note also that the program files will be located in a subdirectory named “application”. I should also be noted that remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
+
+4. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan):
+
+```export PATH=$PATH:path_to_focalscan```
+
+Example:
+
+```export PATH=$PATH:/Applications/FocalScan/application```
+
+5. Download and unzip example data to test the installation with, available at the following links:
+
+_Annotation files:_
+
+```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+
+_Test data:_
+
+```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+
+6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation direc- tory of the MATLAB compiler runtime and path to focalscan for the installation directory of FocalScan (obtained from step 3 above) (all in one line):
+
+```
+path_to_focalscan/focalscan_compiled.sh MCR_root expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+```
+
+This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
+
+7. Inspect the output:
+
+```cat test_gene/peaks.txt```
+
+Any platform, usage from within the MATLAB environment
+------------------------------------------------------
+
+1. Open the terminal application and download the scripts (assuming that git is installed, otherwise just download the zip file):
+
+```git clone git@github.com:jowkar/focalscan.git```
+
+2. Download and unzip example data to test the installation with, available at the following links:
+
+_Annotation files:_
+
+```https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE```
+
+_Test data:_
+
+```https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM```
+
+3. Open MATLAB and add the scripts to the MATLAB path (will have to re- peated each time MATLAB is opened, unless the startup settings are also changed):
+
+```addpath(genpath('path_to_focalscan'))```
+
+Example: 
+
+```addpath(genpath('~/focalscan'))```
+
+(If focalscan was downloaded to the home directory on Linux/Mac)
+
+4. Test the installation (gene-level analysis on breast cancer data from TCGA):
+
+```
+FocalScan.sh('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
+```
+
+This might take up to 40 minutes or slightly longer, depending on proces- sor speed and available memory. The results will be saved to the directory “test gene”.
 
 # 2. Input files
 
@@ -54,7 +207,7 @@ RNA-seq data should be provided as read counts per gene/tile. Gene-level read co
 Two FocalScan expression data input options exist:
 --------------------------------------------------
 
-1) A CSV-file with samples as columns and genes as columns.
+1) A CSV-file with samples as columns and genes as rows.
 
 2) A combination of the following:
     - The path to a directory containing separate read count files for each sample
@@ -106,15 +259,11 @@ NOTE: You may consider pre-filtering your .bam files to only consider uniquely m
 quality reads (e.g. quality 255 only for TopHat alignments, by running 'samtools view -b
 -q255 in.bam > out.bam').
 
-NOTE: FocalScan does not take RNA-seq strand information into account. E.g. TCGA RNA-seq
-datasets are not strand specific, but this could be useful in other cases. Strand-specific
-analysis can be accomplished by first splitting .bam files into '+' and '-'
-fractions using samtools, and running FocalScan on each fraction.
-
 ## 2) Run FocalScan:
 -----------------
 
-- Using the shell script:
+
+- Using the shell scripts:
 ```
 ./focalscan.sh <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
 ```
@@ -138,9 +287,14 @@ Tile-level analysis:
 FocalScan('parameter1','parameter1_value',...,'parameterN','parameterN_value')
 ```
 Example:
-```
-FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed')
-```
+```FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed')```
+
+- With the compiled executable (no MATLAB installation)
+
+```./focalscan_compiled.sh <MCR_root> <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>```
+
+where <MCR_root> is the path to the MATLAB runtime (v901, downloaded by the included installer).
+
 See the manual for more information about available input options
 
 Several output files will be generated (use the 'reportdir' parameter to specify where to write these files. '.' is default):
@@ -163,7 +317,7 @@ After running FocalScan, peak detection may be re-run if desired.
 
 Either use the shell script:
 
-```./standalone_peakdetection.sh report_file_path annot_file_path peak_level scorefield out_file```
+```standalone_peakdetection.sh report_file_path annot_file_path peak_level scorefield out_file```
 
 Valid options for the "scorefield" parameter (the metric to use as basis for peak detection) are:
 
@@ -177,8 +331,25 @@ Valid options for the "scorefield" parameter (the metric to use as basis for pea
 
 Example:
 
-```./standalone_peakdetection.sh example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt```
+```standalone_peakdetection.sh example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt```
 
 Or the MATLAB function:
 
 ```standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,out_file)```
+
+Or the compiled version 
+
+```standalone_peakdetection_compiled.sh <MCR_root> example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt```
+
+Annotating a tile peak report:
+------------------------------
+
+By default, the program will not write the IDs of genes overlapping the tiles in the output report unless a separate gene annotation file was added with the parameter "optional_gene_annot". To add this information afterwards the script "annotate_peaks.sh" can be used:
+
+```annotate_peaks.sh peak_file_path annot_file_path out_file```
+
+Example:
+
+```annotate_peaks.sh peaks.txt annotation/gencode17_symbols.bed peaks_annotated.txt```
+
+The compiled version is named "annotate_peaks_compiled.sh".
