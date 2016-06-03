@@ -89,7 +89,7 @@ Using the shell scripts:
 6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
 
     ```shell
-    focalscan.sh expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
 7. Inspect the output:
@@ -169,7 +169,7 @@ Mac/Linux, compiled executable
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation direc- tory of the MATLAB compiler runtime and path to focalscan for the installation directory of FocalScan (obtained from step 3 above) (all in one line):
 
     ```shell
-    focalscan_compiled.sh MCR_root expr_csv ./example_data/BRCA_expr.csv seg_file ./example_data/BRCA_cna.seg annot_file ./annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan_compiled.sh MCR_root expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
     This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
@@ -290,22 +290,22 @@ quality reads (e.g. quality 255 only for TopHat alignments, by running 'samtools
 
 - Using the shell scripts:
 ```shell
-./focalscan.sh <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
+focalscan.sh <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
 ```
 Example:
 
 Using CSV input:
 ```shell
-./focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed
+focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed
 ```
 
 Using separate read count files for each sample:
 ```shell
-./focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .gene_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
+focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .gene_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
 ```
 Tile-level analysis:
 ```shell
-./focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .tile_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
+focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .tile_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
 ```
 - From within MATLAB:
 ```MATLAB
