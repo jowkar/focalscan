@@ -354,7 +354,7 @@ Valid options for the "scorefield" parameter (the metric to use as basis for pea
 - "fs": FocalScan score without focality filter
 - "sum_cna_hp": summed copy number amplitudes, with focality filter
 - "sum_cna": summed copy number amplitudes, without focality filter
-- "spearman_corr": spearman correlation coefficient
+- "pearson_corr": pearson correlation coefficient
 
 (Assuming that all of the above scores are present in the report.txt file, as is the case by default.)
 
