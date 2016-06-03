@@ -1,12 +1,33 @@
 function t = standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,out_file,varargin)
-    
+
+    % STANDALONE_PEAKDETECTION: find peak genes/tiles based on the report created by FocalScan
+    %
+    % USAGE:
+    %     standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,out_file)
+    % 
+    %         report_file_path: path to main report file created by running FocalScan (ie. report.txt)
+    %         annot_file_path: path to annotation file (ie. annotation/gencode17.bed, gene/tile ids must match those in the report file)
+    %         peak_level: level of granularity at which to find peaks (0.1-1, where 1 is least granular)
+    %         scorefield: metric in the report file to be used as basis for peak detection;
+    %             (Valid options:
+    %                 fs_hp: the standard FocalScan score (with focality filter)
+    %                 fs: FocalScan score without focality filter
+    %                 sum_cna_hp: summed copy number amplitudes, with focality filter
+    %                 sum_cna: summed copy number amplitudes, without focality filter
+    %                 pearson_corr: pearson correlation coefficient)
+    %         out_file: name of output file (ie. peaks.txt)
+    % 
+    % EXAMPLE:
+    %     standalone_peakdetection.sh report.txt annotation/gencode17.bed 0.7 fs_hp ./peaks.txt
+
     isnumericstr = @(x)isnumeric(x)|isnumeric(str2double(x));
 
     p = inputParser;
     p.addRequired('report_file_path',@isstr)
     p.addRequired('annot_file_path',@isstr)
     p.addRequired('peak_level',isnumericstr)
-    expected_values = {'fs','fs_hp','sum_cna','sum_cna_hp','pearson_corr'};
+    %expected_values = {'fs','fs_hp','sum_cna','sum_cna_hp','pearson_corr'};
+    expected_values = {'fs','fs_hp','sum_cna','sum_cna_hp','spearman_corr'};
     p.addRequired('scorefield',@(x) any(validatestring(x,expected_values)));
     p.addRequired('out_file',@isstr);
     p.addParameter('optional_gene_annot','',@isstr);
