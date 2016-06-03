@@ -50,20 +50,19 @@ Using the shell scripts:
 
 2. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan) and path to matlab for the directory where MATLAB is installed (for in- stance, ∼/bin/MATLAB 2015b/bin/)):
 
-```shell
-export PATH=$PATH:path_to_focalscan
-export PATH=$PATH:path_to_matlab
-```
+    ```shell
+    export PATH=$PATH:path_to_focalscan
+    export PATH=$PATH:path_to_matlab
+    ```
 
-Example:
+    Example:
 
-```shell
-export PATH=$PATH:~/focalscan
-export PATH=$PATH:~/bin/MATLAB_R2016a/bin
-```
+    ```shell
+    export PATH=$PATH:~/focalscan
+    export PATH=$PATH:~/bin/MATLAB_R2016a/bin
+    ```
 
-The above paths will differ depending on system and where the respective applications were installed by the user.
-
+    The above paths will differ depending on system and where the respective applications were installed by the user.
 
 3. *Optional:* To avoid having to type the commands in the previous step every time the tool is run, add those commands to the ∼/.bashrc or ∼/.bash profile file (depending on the operating system).
 
