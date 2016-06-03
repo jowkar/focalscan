@@ -17,7 +17,7 @@ Importantly, FocalScan can also be run in a “non gene-centric” fashion: The 
 
 # System requirements
 
-Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM preferred for tile-based analysis. The included shell scripts (.sh) are not supported on Windows (only usage from within MATLAB possible).
+Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM preferred for tile-based analysis. The included shell scripts (.sh) are not supported on Windows (where only usage from within MATLAB possible).
 
 Required software:
 
@@ -64,7 +64,7 @@ Using the shell scripts:
 
     The above paths will differ depending on system and where the respective applications were installed by the user.
 
-3. *Optional:* To avoid having to type the commands in the previous step every time the tool is run, add those commands to the ∼/.bashrc or ∼/.bash profile file (depending on the operating system).
+3. **Optional:** To avoid having to type the commands in the previous step every time the tool is run, add those commands to the ∼/.bashrc or ∼/.bash profile file (depending on the operating system).
 
 4. Add permissions to execute the shell scripts:
 
@@ -74,13 +74,13 @@ Using the shell scripts:
 
 5. Download and unzip example data to test the installation with, available at the following links:
 
-    _Annotation files:_
+    **Annotation files:**
 
     ```shell
     https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
     ```
 
-    _Test data:_
+    **Test data:**
 
     ```shell
     https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
@@ -154,13 +154,13 @@ Mac/Linux, compiled executable
 
 5. Download and unzip example data to test the installation with, available at the following links:
 
-    _Annotation files:_
+    **Annotation files:**
 
     ```shell
     https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
     ```
 
-    _Test data:_
+    **Test data:**
 
     ```shell
     https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
@@ -191,13 +191,13 @@ Any platform, usage from within the MATLAB environment
 
 2. Download and unzip example data to test the installation with, available at the following links:
 
-    _Annotation files:_
+    **Annotation files:**
 
     ```
     https://drive.google.com/open?id=0B_52viSz8FLNeUlPZ0c3akU1ZlE
     ```
 
-    _Test data:_
+    **Test data:**
 
     ```
     https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
@@ -271,6 +271,7 @@ Use HTSeq or equivalent to obtain gene read counts for each sample.
 
 Tile-level analysis:
 --------------------
+
 ```shell
 ./quantify_tiles.sh <BAM_file> annotation/hg18_hg19_1kb_tiles.bed
 ```
@@ -286,7 +287,6 @@ quality reads (e.g. quality 255 only for TopHat alignments, by running 'samtools
 
 ## 2) Run FocalScan:
 -----------------
-
 
 - Using the shell scripts:
 ```shell
@@ -379,7 +379,7 @@ standalone_peakdetection_compiled.sh <MCR_root> example_data/test_CSV/report.txt
 Annotating a tile peak report:
 ------------------------------
 
-By default, the program will not write the IDs of genes overlapping the tiles in the output report unless a separate gene annotation file was added with the parameter "optional_gene_annot". To add this information afterwards the script "annotate_peaks.sh" can be used:
+By default, the program will not write the IDs of genes overlapping the tiles in the output report unless a separate gene annotation file was added with the parameter "optional_gene_annot". To add this information afterwards, the script "annotate_peaks.sh" can be used:
 
 ```shell
 annotate_peaks.sh peak_file_path annot_file_path out_file
