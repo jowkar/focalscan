@@ -115,6 +115,8 @@ Mac/Linux, compiled executable
 ------------------------------
 
 1. Download the file titled FocalScan compiled Linux.zip or FocalScan compiled Mac.zip.
+    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNeHBqZElISXZ2MDQ
+    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNc1FSUUlkTnhPTDQ
 
 2. Open the terminal application and unarchive the file:
 
