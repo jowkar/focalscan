@@ -76,15 +76,11 @@ Using the shell scripts:
 
     **Annotation files:**
 
-    ```shell
-    https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
-    ```
+    - https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
 
     **Test data:**
 
-    ```shell
-    https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
-    ```
+    - https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
 
@@ -156,15 +152,11 @@ Mac/Linux, compiled executable
 
     **Annotation files:**
 
-    ```shell
-    https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
-    ```
+    - https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
 
     **Test data:**
 
-    ```shell
-    https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
-    ```
+    - https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation direc- tory of the MATLAB compiler runtime and path to focalscan for the installation directory of FocalScan (obtained from step 3 above) (all in one line):
 
@@ -193,15 +185,11 @@ Any platform, usage from within the MATLAB environment
 
     **Annotation files:**
 
-    ```
-    https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
-    ```
+    - https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
 
     **Test data:**
 
-    ```
-    https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
-    ```
+    - https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
 
 3. Open MATLAB and add the scripts to the MATLAB path (will have to re- peated each time MATLAB is opened, unless the startup settings are also changed):
 
