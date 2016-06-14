@@ -22,17 +22,17 @@ Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM prefer
 
 Required software:
 
-- MATLAB (unless the compiled executable is uesd)
+- MATLAB R2013b (unless the compiled executable is uesd)
 
 Recommeded for pre-processing expression data:
 
-- bedtools (http://bedtools.readthedocs.org/en/latest/)
-- samtools (http://www.htslib.org)
-- HTseq (http://www-huber.embl.de/users/anders/HTSeq/doc/overview.html)
+- bedtools 2.21.0 (http://bedtools.readthedocs.org/en/latest/)
+- samtools 1.1 (http://www.htslib.org)
+- HTseq 0.6.1 (http://www-huber.embl.de/users/anders/HTSeq/doc/overview.html)
 
 Recommended for visualizing the results:
 
-- IGV (https://www.broadinstitute.org/igv/)
+- IGV 2.3.60 (https://www.broadinstitute.org/igv/)
 
 
 # 1. Installation
