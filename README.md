@@ -39,9 +39,9 @@ Recommended for visualizing the results:
 
 There are three main ways in which this tool can be run:
 
-- Using the shell scripts (Linux/Mac, MATLAB 2015b or later)
+- Using the shell scripts (Linux/Mac, MATLAB 2013b or later)
 - Using the compiled executable (Linux/Mac)
-- From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2015b or later)
+- From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2013b or later)
 
 Using the shell scripts:
 ------------------------
@@ -49,7 +49,7 @@ Using the shell scripts:
 1. Open the terminal application and download the scripts:
 ```git clone git@github.com:jowkar/focalscan.git```
 
-2. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan) and path to matlab for the directory where MATLAB is installed (for in- stance, ∼/bin/MATLAB 2015b/bin/)):
+2. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan) and path to matlab for the directory where MATLAB is installed (for in- stance, ∼/bin/MATLAB 2013b/bin/)):
 
     ```shell
     export PATH=$PATH:path_to_focalscan
