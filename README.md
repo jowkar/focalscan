@@ -4,9 +4,10 @@ FocalScan identifies genomic regions where many tumors show simultaneous increas
 
 Examples (for a given genomic position):
 
-Some tumors show both elevated CNA and RNA levels -> medium score
-Many tumors show both elevated CNA and RNA levels -> high score
-Many tumors show elevated CNA and highly increased RNA -> very high score Many tumors show elevated CNA, but RNA is unchanged -> neutral score
+- Some tumors show both elevated CNA and RNA levels -> medium score
+- Many tumors show both elevated CNA and RNA levels -> high score
+- Many tumors show elevated CNA and highly increased RNA -> very high score 
+- Many tumors show elevated CNA, but RNA is unchanged -> neutral score
 
 Regions with coordinated CNA and RNA reduction will also score favorably.
 
