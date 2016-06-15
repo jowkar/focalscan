@@ -48,6 +48,7 @@ Using the shell scripts:
 
 1. Open the terminal application and download the scripts:
 ```git clone https://github.com/jowkar/focalscan.git```
+(or just download the ZIP archive from https://github.com/jowkar/focalscan/archive/master.zip)
 
 2. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan) and path to matlab for the directory where MATLAB is installed (for in- stance, ∼/bin/MATLAB 2013b/bin/)):
 
