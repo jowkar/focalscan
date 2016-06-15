@@ -47,7 +47,7 @@ Using the shell scripts:
 ------------------------
 
 1. Open the terminal application and download the scripts:
-```git clone git@github.com:jowkar/focalscan.git```
+```git clone https://github.com/jowkar/focalscan.git```
 
 2. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan) and path to matlab for the directory where MATLAB is installed (for in- stance, ∼/bin/MATLAB 2013b/bin/)):
 
@@ -115,27 +115,25 @@ Using the shell scripts:
 Mac/Linux, compiled executable
 ------------------------------
 
-1. Download the file titled FocalScan compiled Linux.zip or FocalScan compiled Mac.zip.
-    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNeHBqZElISXZ2MDQ
-    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNc1FSUUlkTnhPTDQ
+1. Download the file Installer_Linux.install.zip or Installer_Mac.app.zip:
+    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNME9XZTVKZ0tmaTg
+    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNUUpybnNuaGx2aXM
 
 2. Open the terminal application and unarchive the file:
 
     ```shell
-    unzip FocalScan_compiled_Linux.zip
+    unzip Installer_Linux.install.zip
     ```
 
 3. Install the MATLAB runtime (it is important that the runtime is the correct version, in this case v901):
 
     ```shell
-    cd FocalScan_compiled_Linux
-    ./Installer.install
+    ./Installer_Linux.install
     ```
     or
 
     ```shell
-    cd FocalScan_compiled_Mac
-    ./Installer.app
+    ./Installer_Mac.app
     ```
     This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. Note also that the program files will be located in a subdirectory named “application”. I should also be noted that remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
 
@@ -181,7 +179,7 @@ Any platform, usage from within the MATLAB environment
 1. Open the terminal application and download the scripts (assuming that git is installed, otherwise just download the zip file):
 
     ```shell
-    git clone git@github.com:jowkar/focalscan.git
+    git clone https://github.com/jowkar/focalscan.git
     ```
 
 2. Download and unzip example data to test the installation with, available at the following links:

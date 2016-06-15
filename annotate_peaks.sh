@@ -35,7 +35,7 @@ then
     echo "$(tput bold)USAGE:$(tput sgr0)
     annotate_peaks.sh peaks_file_path annot_file_path out_file
 
-        $(tput bold)peak_file_path:$(tput sgr0) path to main report file created by running FocalScan (ie. peaks.txt)
+        $(tput bold)peak_file_path:$(tput sgr0) path to peak report file created by running FocalScan (ie. peaks.txt)
         $(tput bold)annot_file_path:$(tput sgr0) path to annotation file (ie. annotation/gencode17.bed)
         $(tput bold)out_file:$(tput sgr0) name of output file (ie. peaks_annotated.txt)"
     echo
