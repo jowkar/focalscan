@@ -210,7 +210,7 @@ Any platform, usage from within the MATLAB environment
 4. Test the installation (gene-level analysis on breast cancer data from TCGA):
 
     ```MATLAB
-    FocalScan.sh('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
+    FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
     ```
 
     This might take up to 40 minutes or slightly longer, depending on proces- sor speed and available memory. The results will be saved to the directory “test gene”.
