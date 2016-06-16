@@ -34,6 +34,12 @@ Recommended for visualizing the results:
 
 - IGV 2.3.60 (https://www.broadinstitute.org/igv/)
 
+# Additional files
+
+- Annotation: https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
+- Example data: https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+- Compiled Linux version:  https://drive.google.com/open?id=0B_52viSz8FLNSHJFeE4yZWpCaUE
+- Compiled Mac verion: https://drive.google.com/open?id=0B_52viSz8FLNVXpubFhGVTRYdzg
 
 # 1. Installation
 
