@@ -77,7 +77,33 @@ classdef FocalScan
     %    'seg_file': File containing segmented copy number data for all samples 
     %
     %    'window_size': Window size used by the focality filter 
-
+    % 
+    % GENERAL USAGE INFO: 
+    %
+    %     - Input arguments are specified as pairs of parameter name and
+    %     value.
+    % 
+    %     - The minimum required input is the path to expression data, 
+    %     copy number data and an annotation file.
+    %
+    %     - The expression data can be given either as a CSV file (for gene-level
+    %     analysis) or as a directory of separate read count files (gene-level and
+    %     tile-level analysis). When the second option is used, the file extension
+    %     of these files must also be given, and additionally an index file. The
+    %     index file should contain two columns, where the first one includes the
+    %     file names of the read count files (excluding the extension) and the
+    %     second one includes the sample names used in the copy number data.
+    % 
+    %     - The copy number data needs to be provided in segmented format, in a
+    %     file following the SEG format (https://www.broadinstitute.org/igv/SEG)
+    % 
+    %     - To perform a tile-level analysis, use the included file
+    %     hg18_hg19_1kb_tiles.bed as annotation
+    % 
+    %     - For tile-level analysis, also remember to specify the parameter
+    %     "optional_gene_annot" and give the path to a standard gene annotation
+    %     file (BED format) in order to report which genes overlap each tile in the
+    %     final peak report
 
     properties
         % input parameters
@@ -950,7 +976,14 @@ classdef FocalScan
             p.addParameter('fast_read',0,isnumericstr);
             
             % parse parameters
-            p.parse(varargin{:});
+            
+            try
+                p.parse(varargin{:});
+            catch ME
+                help FocalScan.m
+                rethrow(ME)
+            end
+                
         
  %           install_dir = p.Results.install_dir;
  %           current_dir = p.Results.current_dir;
@@ -1035,7 +1068,8 @@ classdef FocalScan
                 
                 if ~input_combination
                     disp(datasource)
-                    error('Incomplete specification of input data sources')
+                    help FocalScan.m
+                    error('Incomplete input')
                 end
             end
         end

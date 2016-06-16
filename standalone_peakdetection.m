@@ -37,7 +37,12 @@ function t = standalone_peakdetection(report_file_path,annot_file_path,peak_leve
     p.addParameter('min_genes', 100, isnumericstr);
     p.addParameter('plot_dir', '', @isstr);
     
-    p.parse(report_file_path,annot_file_path,peak_level,scorefield,out_file,varargin{:});
+    try
+        p.parse(report_file_path,annot_file_path,peak_level,scorefield,out_file,varargin{:});
+    catch ME
+        help standalone_peakdetection.m
+        rethrow(ME)
+    end
 
     peak_level = numstr2num(p.Results.peak_level);
     optional_gene_annot = p.Results.optional_gene_annot;
