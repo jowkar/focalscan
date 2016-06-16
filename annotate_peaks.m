@@ -20,7 +20,12 @@ function peaks = annotate_peaks(peak_file_path,annot_file_path,out_file)
     try
         p.parse(peak_file_path,annot_file_path,out_file);
     catch ME
-        help annotate_peaks.m
+%         if ideployed
+%             type help_annotate_peaks.txt
+%         else
+%             help annotate_peaks.m
+%         end
+        disp('Invalid input. Run the program without arguments to display a help page (or use the help command within the MATLAB environment).')
         rethrow(ME)
     end
     

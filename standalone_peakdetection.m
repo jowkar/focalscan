@@ -40,7 +40,12 @@ function t = standalone_peakdetection(report_file_path,annot_file_path,peak_leve
     try
         p.parse(report_file_path,annot_file_path,peak_level,scorefield,out_file,varargin{:});
     catch ME
-        help standalone_peakdetection.m
+%         if isdeployed
+%             type help_standalone_peakdetection
+%         else
+%             help standalone_peakdetection.m
+%         end
+        disp('Invalid input. Run the program without arguments to display a help page (or use the help command within the MATLAB environment).')
         rethrow(ME)
     end
 

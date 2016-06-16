@@ -944,7 +944,13 @@ classdef FocalScan
             
   %          p.addParameter('install_dir','./',@isstr);
   %          p.addParameter('current_dir','./',@isstr);
-
+% 
+%             p.addOptional('help','',@validateHelp)
+%   
+%             function validHelp = validateHelp(x)
+%                 validHelp = strcmp(x,'help');
+%             end
+            
             % optional csv-formatted data input?
             p.addParameter('expr_csv', '',@isstr);
             p.addParameter('expr_ratio_csv', '',@isstr);
@@ -980,7 +986,7 @@ classdef FocalScan
             try
                 p.parse(varargin{:});
             catch ME
-                help FocalScan.m
+                disp('Invalid input. Run the program without arguments to display a help page (or use the help command within the MATLAB environment).')
                 rethrow(ME)
             end
                 
@@ -1067,9 +1073,14 @@ classdef FocalScan
                 input_combination = max(input_combination);
                 
                 if ~input_combination
+%                     if isdeployed
+%                         type help.txt
+%                     else
+%                         help FocalScan.m
+%                     end
+                    fprintf('\n')
                     disp(datasource)
-                    help FocalScan.m
-                    error('Incomplete input')
+                    error('Invalid input. Run the program without arguments to display a help page (or use the help command within the MATLAB environment).')
                 end
             end
         end

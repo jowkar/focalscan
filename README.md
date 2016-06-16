@@ -118,7 +118,7 @@ Mac/Linux, compiled executable
 
 1. Download the file Installer_Linux.install.zip or Installer_Mac.app.zip:
     - Linux: https://drive.google.com/open?id=0B_52viSz8FLNME9XZTVKZ0tmaTg
-    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNUUpybnNuaGx2aXM
+    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNVXpubFhGVTRYdzg
 
 2. Open the terminal application and unarchive the file:
 
