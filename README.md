@@ -23,7 +23,7 @@ Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM prefer
 **Note:** This is a command line based application.
 
 Operating system:
-- Standard shell scripts, with MATLAB installed (preferred):
+- Standard shell scripts, with MATLAB installed **(preferred)**:
     - Any operating system that supports MATLAB R2013b or newer
 - Compiled executable:
     - Mac: **OSX 10.11** (El Capitan). Not guarateed that it will work on older versions (in theory 10.10 should work as well, although this has not been tested).
@@ -58,7 +58,7 @@ Recommended for visualizing the results:
 There are three main ways in which this tool can be run:
 
 - If MATLAB is installed: 
-    - Use the shell scripts available here at GitHub (Linux/Mac, MATLAB 2013b or later) (preferred)
+    - Use the shell scripts available here at GitHub (Linux/Mac, MATLAB 2013b or later) **(preferred)**
     - From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2013b or later)
 - If MATLAB is not installed: Use the compiled executable (Linux/Mac)
 
