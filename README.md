@@ -45,9 +45,10 @@ Recommended for visualizing the results:
 
 There are three main ways in which this tool can be run:
 
-- Using the shell scripts (Linux/Mac, MATLAB 2013b or later)
-- Using the compiled executable (Linux/Mac)
-- From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2013b or later)
+- If MATLAB is installed: 
+    - Use the shell scripts available here at GitHub (Linux/Mac, MATLAB 2013b or later)
+    - From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2013b or later)
+- If MATLAB is not installed: Use the compiled executable (Linux/Mac)
 
 Using the shell scripts:
 ------------------------
@@ -142,7 +143,11 @@ Mac/Linux, compiled executable
     ```shell
     open ./Installer_Mac.app
     ```
-    This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. Note also that the program files will be located in a subdirectory named “application”. I should also be noted that remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
+    This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. 
+    
+    **Note:** The program files will be located in a subdirectory named “application”. 
+    
+    **Note:** The remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
 
 4. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan):
 
