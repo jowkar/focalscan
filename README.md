@@ -135,7 +135,7 @@ Mac/Linux, compiled executable
     unzip Installer_Linux.install.zip
     ```
 
-3. Install the MATLAB runtime (it is important that the runtime is the correct version, in this case v901):
+3. Install the MATLAB runtime (it is important that the runtime is the correct version is used, in this case v901):
 
     ```shell
     ./Installer_Linux.install
@@ -145,7 +145,7 @@ Mac/Linux, compiled executable
     ```shell
     open ./Installer_Mac.app
     ```
-    This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. 
+    This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, respectively, or any other directories chosen). The path to the runtime directory is from now on referred to as “MCR path”. 
     
     **Note:** The program files will be located in a subdirectory named “**application**”, which needs to be included in the path to focalscan in the command below. 
     
