@@ -34,6 +34,8 @@ Recommended for visualizing the results:
 
 - IGV 2.3.60 (https://www.broadinstitute.org/igv/)
 
+**Note:** This is a command line based application.
+
 # Additional files
 
 - Annotation: https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
