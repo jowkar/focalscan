@@ -145,7 +145,7 @@ Mac/Linux, compiled executable
     ```
     This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, re- spectively, or any other directories chosen). The path to the runtime directory (from now on referred to as “MCR root”) and the path to FocalScan (from now on referred to as “path to focalscan”) will have to be specified later when running the program. 
     
-    **Note:** The program files will be located in a subdirectory named “application”. 
+    **Note:** The program files will be located in a subdirectory named “application”, which needs to be included in the path to focalscan in the command below. 
     
     **Note:** The remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
 
