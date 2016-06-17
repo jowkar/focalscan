@@ -29,7 +29,7 @@ Operating system:
     - Mac: **OSX 10.11** (El Capitan). Not guarateed that it will work on older versions (in theory 10.10 should work as well, although this has not been tested).
     - Linux: Tested on CentOS 6.6, 6.7
         - Fedora 20 and Ubuntu 14.04 has also been tested successfully, however, the following issues were encountered (which are operating system and/or MATLAB specific bugs that are unrelated to FocalScan itself):
-            - Fedora 20 may have some issues connecting to the MathWorks servers; see http://se.mathworks.com/matlabcentral/answers/127647-activating-matlab-under-fedora-20-eth0-is-reported-missing)
+            - Fedora 20 may have some issues connecting to the MathWorks servers
             - On Ubuntu 14.04, the installer appeared to get stuck while downloading the runtime from MathWorks, but clicking "Finish" after a while completed the installation sucessfully despite this.
 
 Required software:
