@@ -173,10 +173,10 @@ Mac/Linux, compiled executable
 
     - https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
 
-6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation direc- tory of the MATLAB compiler runtime and path to focalscan for the installation directory of FocalScan (obtained from step 3 above) (all in one line):
+6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation directory of the MATLAB compiler runtime (for instance /Applications/MATLAB/MATLAB_Runtime/v901, if that is were it was installed):
 
     ```shell
-    focalscan MCR_root expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan MCR_path expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
     This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
@@ -322,10 +322,10 @@ FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_
 - With the compiled executable (no MATLAB installation)
 
 ```shell
-focalscan <MCR_root> <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
+focalscan <MCR_path> <parameter1> <parameter1_value> ... <parameterN> <parameterN_value>
 ```
 
-where <MCR_root> is the path to the MATLAB runtime (v901, downloaded by the included installer).
+where <MCR_path> is the path to the MATLAB runtime (v901, downloaded by the included installer).
 
 See the manual for more information about available input options
 
@@ -376,7 +376,7 @@ standalone_peakdetection(report_file_path,annot_file_path,peak_level,scorefield,
 Or the compiled version 
 
 ```shell
-standalone_peakdetection.sh <MCR_root> example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt
+standalone_peakdetection.sh <MCR_path> example_data/test_CSV/report.txt annotation/gencode17_symbols.bed 0.7 fs_hp ./new_peaks.txt
 ```
 
 Annotating a tile peak report:
