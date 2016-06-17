@@ -20,6 +20,8 @@ Importantly, FocalScan can also be run in a “non gene-centric” fashion: The 
 
 Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM preferred for tile-based analysis. The included shell scripts (.sh) are not supported on Windows (where only usage from within MATLAB possible).
 
+**Note:** This is a command line based application.
+
 Required software:
 
 - MATLAB R2013b (unless the compiled executable is uesd)
@@ -33,8 +35,6 @@ Recommeded for pre-processing expression data:
 Recommended for visualizing the results:
 
 - IGV 2.3.60 (https://www.broadinstitute.org/igv/)
-
-**Note:** This is a command line based application.
 
 # Additional files
 
