@@ -52,7 +52,7 @@ There are three main ways in which this tool can be run:
     - From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2013b or later)
 - If MATLAB is not installed: Use the compiled executable (Linux/Mac)
 
-**Note:** The manual contains more detailed instructions, including a section detailing common errors and warning that may be referred to if anything goes wrong.
+**Note:** The manual contains a section detailing common errors and warnings that may be referred to if anything goes wrong.
 
 Using the shell scripts:
 ------------------------
