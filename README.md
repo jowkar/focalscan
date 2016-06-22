@@ -57,8 +57,8 @@ Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM prefer
 
 - Annotation: https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
 - Example data: https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
-- Compiled Linux version:  https://drive.google.com/open?id=0B_52viSz8FLNSHJFeE4yZWpCaUE
-- Compiled Mac version: https://drive.google.com/open?id=0B_52viSz8FLNVXpubFhGVTRYdzg
+- Compiled Linux version: https://drive.google.com/open?id=0B_52viSz8FLNaEUxaXJKTkJLT0U
+- Compiled Mac version: https://drive.google.com/open?id=0B_52viSz8FLNNjdTa0dxRTVCQVE
 
 # 1. Installation
 
@@ -119,13 +119,13 @@ Using the shell scripts ("focalsan.sh"):
 6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
 
     ```shell
-    focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir reports
     ```
 
 7. Inspect the output:
 
     ```shell
-    cat test_gene/peaks.txt
+    cat reports/peaks.txt
     ```
 
     This should list the top ranking genes:
@@ -149,8 +149,8 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 ------------------------------
 
 1. Download the file Installer_Linux.install.zip or Installer_Mac.app.zip:
-    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNSHJFeE4yZWpCaUE
-    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNVXpubFhGVTRYdzg
+    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNaEUxaXJKTkJLT0U
+    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNNjdTa0dxRTVCQVE
 
 2. Open the terminal application and unarchive the file:
 
@@ -173,6 +173,8 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     **Note:** The program files will be located in a subdirectory named “**application**”, which needs to be included in the path to focalscan in the command below. 
     
     **Note:** The remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
+
+    **Note:** If the installer fails to start on Linux, try changing permissions by typing ```chmod 755 Installer_Linux.install```.
 
 4. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan):
 
@@ -199,7 +201,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation directory of the MATLAB compiler runtime (for instance /Applications/MATLAB/MATLAB_Runtime/v901, if that is were it was installed):
 
     ```shell
-    focalscan MCR_path expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan MCR_path expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir reports
     ```
 
     This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
@@ -207,7 +209,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 7. Inspect the output:
 
     ```shell
-    cat test_gene/peaks.txt
+    cat reports/peaks.txt
     ```
 
 Any platform, usage from within the MATLAB environment (the function "FocalScan")
@@ -229,7 +231,7 @@ Any platform, usage from within the MATLAB environment (the function "FocalScan"
 
     - https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
 
-3. Open MATLAB and add the scripts to the MATLAB path (will have to re- peated each time MATLAB is opened, unless the startup settings are also changed):
+3. Open MATLAB and add the scripts to the MATLAB path (will have to repeated each time MATLAB is opened, unless the startup settings are also changed):
 
     ```MATLAB
     addpath(genpath('path_to_focalscan'))
@@ -246,10 +248,10 @@ Any platform, usage from within the MATLAB environment (the function "FocalScan"
 4. Test the installation (gene-level analysis on breast cancer data from TCGA):
 
     ```MATLAB
-    FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
+    FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','reports')
     ```
 
-    This might take up to 40 minutes or slightly longer, depending on proces- sor speed and available memory. The results will be saved to the directory “test gene”.
+    This might take up to 40 minutes or slightly longer, depending on processor speed and available memory. The results will be saved to the directory “reports”.
 
 # 2. Input files
 
