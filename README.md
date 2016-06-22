@@ -174,14 +174,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     
     **Note:** Remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program):
     
-    If the following text is printed, but no graphical interface appears, then the installation has most likely **not** succeded (unless the user has write access to the directory /usr):
-
-    ```shell
-    Preparing installation files ...
-    Installing ...
-    Finished
-    ```
-    It appears that the installer fails to display the graphical interface if a certain amount of time has passed after logging in to a remote computer using X forwarding. Try again after reconnecting to the remote machine. 
+    If no graphical interface appears, a text might still be printed suggesting that installation has "Finished". However, it might still **not** have succeded, unless the user has write access to the directory /usr. It also appears that the installer fails to display the graphical interface if a certain amount of time has passed after logging in to a remote computer using X forwarding. In this case, try again after reconnecting to the remote machine. 
 
     **Note:** If the installer fails to start on Linux, try changing permissions by typing ```chmod 755 Installer_Linux.install```.
 
