@@ -122,6 +122,11 @@ Using the shell scripts ("focalsan.sh"):
     focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir reports
     ```
 
+    If the following occurs, double check that the correct input file paths were given:
+    ```shell
+    Invalid file identifier.  Use fopen to generate a valid file identifier.
+    ```
+
 7. Inspect the output:
 
     ```shell
@@ -207,6 +212,11 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     ```
 
     This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
+
+    If the following occurs, double check that the correct input file paths were given:
+    ```shell
+    Invalid file identifier.  Use fopen to generate a valid file identifier.
+    ```
 
 7. Inspect the output:
 
