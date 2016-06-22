@@ -57,8 +57,8 @@ Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM prefer
 
 - Annotation: https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
 - Example data: https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
-- Compiled Linux version: https://drive.google.com/open?id=0B_52viSz8FLNaEUxaXJKTkJLT0U
-- Compiled Mac version: https://drive.google.com/open?id=0B_52viSz8FLNNjdTa0dxRTVCQVE
+- Compiled Linux version: https://drive.google.com/open?id=0B_52viSz8FLNVmk2RUJOeU82M2M
+- Compiled Mac version: https://drive.google.com/open?id=0B_52viSz8FLNc2VvTERsUWVyVUU
 
 # 1. Installation
 
@@ -149,8 +149,8 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 ------------------------------
 
 1. Download the file Installer_Linux.install.zip or Installer_Mac.app.zip:
-    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNaEUxaXJKTkJLT0U
-    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNNjdTa0dxRTVCQVE
+    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNVmk2RUJOeU82M2M
+    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNc2VvTERsUWVyVUU
 
 2. Open the terminal application and unarchive the file:
 
@@ -172,7 +172,16 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     
     **Note:** The program files will be located in a subdirectory named “**application**”, which needs to be included in the path to focalscan in the command below. 
     
-    **Note:** The remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program).
+    **Note:** Remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program):
+    
+    If the following text is printed, but no graphical interface appears, then the installation has most likely **not** succeded (unless the user has write access to the directory /usr):
+
+    ```shell
+    Preparing installation files ...
+    Installing ...
+    Finished
+    ```
+    It appears that the installer fails to display the graphical interface if a certain amount of time has passed after logging in to a remote computer using X forwarding. Try again after reconnecting to the remote machine. 
 
     **Note:** If the installer fails to start on Linux, try changing permissions by typing ```chmod 755 Installer_Linux.install```.
 
