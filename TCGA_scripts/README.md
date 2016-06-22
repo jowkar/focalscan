@@ -1,0 +1,1 @@
+These are some additional scripts that may be useful for pre-processing TCGA data. They should not be considered a part of FocalScan and are only provided as examples. Refer to the manual for more details.
