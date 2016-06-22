@@ -49,7 +49,7 @@ Recommended for visualizing the results:
 # Additional files
 
 - Annotation: https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
-- Example data: https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+- Example data: https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
 - Compiled Linux version:  https://drive.google.com/open?id=0B_52viSz8FLNSHJFeE4yZWpCaUE
 - Compiled Mac version: https://drive.google.com/open?id=0B_52viSz8FLNVXpubFhGVTRYdzg
 
@@ -105,12 +105,12 @@ Using the shell scripts:
 
     **Test data:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+    - https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
 
     ```shell
-    focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
 7. Inspect the output:
@@ -185,12 +185,12 @@ Mac/Linux, compiled executable
 
     **Test data:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+    - https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation directory of the MATLAB compiler runtime (for instance /Applications/MATLAB/MATLAB_Runtime/v901, if that is were it was installed):
 
     ```shell
-    focalscan MCR_path expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
+    focalscan MCR_path expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir test_gene
     ```
 
     This might take up to 40 minutes or slightly longer, depending on processor speed and available memory.
@@ -218,7 +218,7 @@ Any platform, usage from within the MATLAB environment
 
     **Test data:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNWFRvaUNyMGhCbHM
+    - https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
 
 3. Open MATLAB and add the scripts to the MATLAB path (will have to re- peated each time MATLAB is opened, unless the startup settings are also changed):
 
@@ -237,7 +237,7 @@ Any platform, usage from within the MATLAB environment
 4. Test the installation (gene-level analysis on breast cancer data from TCGA):
 
     ```MATLAB
-    FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
+    FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA.seg','annot_file','annotation/gencode17_symbols.bed','reportdir','test_gene')
     ```
 
     This might take up to 40 minutes or slightly longer, depending on proces- sor speed and available memory. The results will be saved to the directory “test gene”.
@@ -313,16 +313,16 @@ Example:
 
 Using CSV input:
 ```shell
-focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA_cna.seg annot_file annotation/gencode17_symbols.bed
+focalscan.sh expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed
 ```
 
 Using separate read count files for each sample:
 ```shell
-focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .gene_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
+focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .gene_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA.seg
 ```
 Tile-level analysis:
 ```shell
-focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .tile_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA_cna.seg
+focalscan.sh expr_path example_data/read_count_files index_file example_data/index.txt file_extension .tile_counts annot_file annotation/gencode17.bed seg_file example_data/BRCA.seg
 ```
 - From within MATLAB:
 ```MATLAB
@@ -330,7 +330,7 @@ FocalScan('parameter1','parameter1_value',...,'parameterN','parameterN_value')
 ```
 Example:
 ```MATLAB
-FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA_cna.seg','annot_file','annotation/gencode17_symbols.bed')
+FocalScan('expr_csv','example_data/BRCA_expr.csv','seg_file','example_data/BRCA.seg','annot_file','annotation/gencode17_symbols.bed')
 ```
 
 - With the compiled executable (no MATLAB installation)
