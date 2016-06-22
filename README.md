@@ -22,27 +22,34 @@ Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM prefer
 
 **Note:** This is a command line based application.
 
-Operating system:
-- Standard shell scripts, with MATLAB installed **(preferred)**:
-    - Any operating system that supports MATLAB R2013b or newer
-- Compiled executable:
-    - Mac: **OSX 10.11** (El Capitan). Not guarateed that it will work on older versions (in theory 10.10 should work as well, although this has not been tested).
-    - Linux: Tested on CentOS 6.6, 6.7
-        - Fedora 20 and Ubuntu 14.04 has also been tested successfully, however, the following issues were encountered (which are operating system and/or MATLAB specific bugs that are unrelated to FocalScan itself):
-            - Fedora 20 may have some issues connecting to the MathWorks servers
-            - On Ubuntu 14.04, the installer appeared to get stuck while downloading the runtime from MathWorks, but clicking "Finish" after a while completed the installation sucessfully despite this.
+**Operating system:**
+- _Standard shell scripts, with MATLAB installed_ **(preferred)**:
+    - Any operating system that supports MATLAB R2013b or newer. (Tested on OSX 10.11, CentOS 6.6, 6.7, Fedora 20, Windows 7)
+- _Compiled executable_:
+    - Mac: **OSX 10.11** (El Capitan). 
+        - Not guarateed to work on older versions (in theory 10.10 should work as well, although this has not been tested). 10.8 (Mountain Lion) does **not** work (the v901 MATLAB runtime is incompatible).
+    - Linux: CentOS 6.6, 6.7 tested
+        - Ubuntu 14.04 and Fedora 20 have also been tested successfully. However, the following issues were encountered (which are operating system and/or MATLAB specific bugs unrelated to FocalScan itself):
+            - Ubuntu 14.04: the installer appeared to get stuck while downloading the runtime from MathWorks, but clicking "Finish" after a while completed the installation sucessfully despite this.
+            - Fedora 20: may have issues connecting to the MathWorks servers
 
-Required software:
+**Hardware:**
+- Gene-level analysis:
+    - 8 GB RAM or more, depending on the number of samples analyzed
+- Tile-level analysis:
+    - 30 GB RAM or more, depending on the number of samples
+
+**Required software:**
 
 - MATLAB R2013b to R2016a (unless the compiled executable is used)
 
-Recommeded for pre-processing expression data:
+**Recommeded for pre-processing expression data:**
 
 - bedtools 2.21.0 (http://bedtools.readthedocs.org/en/latest/)
 - samtools 1.1 (http://www.htslib.org)
 - HTseq 0.6.1 (http://www-huber.embl.de/users/anders/HTSeq/doc/overview.html)
 
-Recommended for visualizing the results:
+**Recommended for visualizing the results:**
 
 - IGV 2.3.60 (https://www.broadinstitute.org/igv/)
 
@@ -57,16 +64,18 @@ Recommended for visualizing the results:
 
 There are three main ways in which this tool can be run:
 
-- If MATLAB is installed: 
-    - Use the shell scripts available here at GitHub (Linux/Mac, MATLAB 2013b or later) **(preferred)**
-    - From within the MATLAB environment (Linux/Mac/Windows, MATLAB 2013b or later)
-- If MATLAB is not installed: Use the compiled executable (Linux/Mac)
+- **If MATLAB is installed:** 
+    - Use the shell scripts ("focalscan.sh") available here at GitHub (Linux/Mac, MATLAB 2013b or later) **(preferred)**
+    - From within the MATLAB environment (the function "FocalScan") (Linux/Mac/Windows, MATLAB 2013b or later)
+- **If MATLAB is not installed:** 
+    - Use the compiled executable (the script "focalscan", without ".sh", provided by the installer) (Linux/Mac)
+        - See also the section on system requirements
 
 **Note:** The manual contains a section detailing common errors and warnings that may be referred to if anything goes wrong.
 
-**Note:** Using the standard shell scripts and a MATLAB installation is preferred, since the compiled executables are somewhat sensitive to differences between operating system versions, due to how the MATLAB runtime and its installer operates. For instance, Mac OSX 10.8 cannot execute the v901 runtime and some Linux versions have issues connecting to the MathWorks servers.
+**Note:** Using the standard shell scripts (ie. focalscan.sh) and a MATLAB installation is preferred, since the compiled executables are somewhat sensitive to differences between operating system versions, due to how the MATLAB runtime and its installer operates. For instance, Mac OSX 10.8 cannot execute the v901 runtime and some Linux versions have issues connecting to the MathWorks servers.
 
-Using the shell scripts:
+Using the shell scripts ("focalsan.sh"):
 ------------------------
 
 1. Open the terminal application and download the scripts:
@@ -136,7 +145,7 @@ Using the shell scripts:
 
     Also available in the in the output are a full report with detailed statistics and .wig files that can be visualized with IGV, containing full tracks with scores, copy number amplitudes and mean expression levels of all genes.
 
-Mac/Linux, compiled executable
+Mac/Linux, compiled executable (started by the script "focalscan", without ".sh")
 ------------------------------
 
 1. Download the file Installer_Linux.install.zip or Installer_Mac.app.zip:
@@ -201,7 +210,7 @@ Mac/Linux, compiled executable
     cat test_gene/peaks.txt
     ```
 
-Any platform, usage from within the MATLAB environment
+Any platform, usage from within the MATLAB environment (the function "FocalScan")
 ------------------------------------------------------
 
 1. Open the terminal application and download the scripts (assuming that git is installed, otherwise just download the zip file):
@@ -246,8 +255,8 @@ Any platform, usage from within the MATLAB environment
 
 RNA-seq data should be provided as read counts per gene/tile. Gene-level read counts can be obtained with HTSeq (or equivalent) and tile-level counts with coverageBed (for instance using the included script "quantify_tiles.sh").
 
-Two FocalScan expression data input options exist:
---------------------------------------------------
+Two expression data input options exist:
+----------------------------------------
 
 1. A CSV-file with samples as columns and genes as rows.
 
