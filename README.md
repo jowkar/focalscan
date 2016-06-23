@@ -55,10 +55,10 @@ Linux/Mac/Windows, 8 GB RAM preferred for gene-based analysis, >30 GB RAM prefer
 
 # Additional files
 
-- Annotation: https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
-- Example data: https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
-- Compiled Linux version: https://drive.google.com/open?id=0B_52viSz8FLNVmk2RUJOeU82M2M
-- Compiled Mac version: https://drive.google.com/open?id=0B_52viSz8FLNc2VvTERsUWVyVUU
+- Annotation: https://drive.google.com/file/d/0B_52viSz8FLNTk4xb2VuY3lSQk0/view?usp=sharing
+- Example data: https://drive.google.com/file/d/0B_52viSz8FLNX2lZVF9SOTFMQzg/view?usp=sharing
+- Compiled Linux version: https://drive.google.com/file/d/0B_52viSz8FLNVmk2RUJOeU82M2M/view?usp=sharing
+- Compiled Mac version: https://drive.google.com/file/d/0B_52viSz8FLNc2VvTERsUWVyVUU/view?usp=sharing
 
 # 1. Installation
 
@@ -110,11 +110,11 @@ Using the shell scripts ("focalsan.sh"):
 
     **Annotation files:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
+    - https://drive.google.com/file/d/0B_52viSz8FLNTk4xb2VuY3lSQk0/view?usp=sharing
 
     **Test data:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
+    - https://drive.google.com/file/d/0B_52viSz8FLNX2lZVF9SOTFMQzg/view?usp=sharing
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA) (all in one line):
 
@@ -154,8 +154,8 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 ------------------------------
 
 1. Download the file Installer_Linux.install.zip or Installer_Mac.app.zip:
-    - Linux: https://drive.google.com/open?id=0B_52viSz8FLNVmk2RUJOeU82M2M
-    - Mac: https://drive.google.com/open?id=0B_52viSz8FLNc2VvTERsUWVyVUU
+    - Linux: https://drive.google.com/file/d/0B_52viSz8FLNVmk2RUJOeU82M2M/view?usp=sharing
+    - Mac: https://drive.google.com/file/d/0B_52viSz8FLNc2VvTERsUWVyVUU/view?usp=sharing
 
 2. Open the terminal application and unarchive the file:
 
@@ -199,11 +199,11 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 
     **Annotation files:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
+    - https://drive.google.com/file/d/0B_52viSz8FLNTk4xb2VuY3lSQk0/view?usp=sharing
 
     **Test data:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
+    - https://drive.google.com/file/d/0B_52viSz8FLNX2lZVF9SOTFMQzg/view?usp=sharing
 
 6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation directory of the MATLAB compiler runtime (for instance /Applications/MATLAB/MATLAB_Runtime/v901, if that is were it was installed):
 
@@ -237,11 +237,11 @@ Any platform, usage from within the MATLAB environment (the function "FocalScan"
 
     **Annotation files:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNTk4xb2VuY3lSQk0
+    - https://drive.google.com/file/d/0B_52viSz8FLNTk4xb2VuY3lSQk0/view?usp=sharing
 
     **Test data:**
 
-    - https://drive.google.com/open?id=0B_52viSz8FLNX2lZVF9SOTFMQzg
+    - https://drive.google.com/file/d/0B_52viSz8FLNX2lZVF9SOTFMQzg/view?usp=sharing
 
 3. Open MATLAB and add the scripts to the MATLAB path (will have to repeated each time MATLAB is opened, unless the startup settings are also changed):
 
