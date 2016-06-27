@@ -195,6 +195,8 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     export PATH=$PATH:/Applications/FocalScan/application
     ```
 
+    **Note:"" The “**application**” subdirectory needs to be included in the path.
+
 5. Download and unzip example data to test the installation with, available at the following links:
 
     **Annotation files:**
