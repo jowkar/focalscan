@@ -163,7 +163,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     unzip Installer_Linux.install.zip
     ```
 
-3. Install the MATLAB runtime (it is important that the runtime is the correct version is used, in this case v901):
+3. Install FocalScan, including the MATLAB runtime (it is important that the runtime is the correct runtime version is used, in this case v901):
 
     ```shell
     ./Installer_Linux.install
@@ -175,11 +175,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     ```
     This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, respectively, or any other directories chosen). The path to the runtime directory is from now on referred to as “MCR path”. 
     
-    **Note:** The program files will be located in a subdirectory named “**application**”, which needs to be included in the path to focalscan in the command below. 
-    
-    **Note:** Remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program):
-    
-    If no graphical interface appears, a text might still be printed suggesting that installation has "Finished". However, it might still **not** have succeded, unless the user has write access to the directory /usr. It also appears that the installer fails to display the graphical interface if a certain amount of time has passed after logging in to a remote computer using X forwarding. In this case, try again after reconnecting to the remote machine. 
+    **Note:** Remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program): If no graphical interface appears, a text might still be printed suggesting that installation has "Finished". However, it might still **not** have succeded, unless the user has write access to the directory /usr. It also appears that the installer fails to display the graphical interface if a certain amount of time has passed after logging in to a remote computer using X forwarding. In this case, try again after reconnecting to the remote machine. 
 
     **Note:** If the installer fails to start on Linux, try changing permissions by typing ```chmod 755 Installer_Linux.install```.
 
