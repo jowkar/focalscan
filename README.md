@@ -163,7 +163,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     unzip Installer_Linux.install.zip
     ```
 
-3. Install FocalScan, including the MATLAB runtime (it is important that the runtime is the correct runtime version is used, in this case v901):
+3. Install FocalScan, including the MATLAB runtime (it is important that the correct runtime version is used, in this case v901):
 
     ```shell
     ./Installer_Linux.install
