@@ -166,6 +166,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 3. Install FocalScan, including the MATLAB runtime (it is important that the correct runtime version is used, in this case v901):
 
     ```shell
+    chmod 755 Installer_Linux.install
     ./Installer_Linux.install
     ```
     or
@@ -173,11 +174,11 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
     ```shell
     open ./Installer_Mac.app
     ```
-    This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, respectively, or any other directories chosen). The path to the runtime directory is from now on referred to as “MCR path”. 
+    This should bring up a window for downloading and installing the runtime. Make a note of where FocalScan is installed and where the runtime is installed (such as /Applications/FocalScan/application and ∼/bin/MCR/v901, respectively, or any other directories chosen). The path to the runtime directory is from now on referred to as “MCR path”.
     
     **Note:** Remote installation on a Linux server was observed to occassionally fail if X forwarding was not used (a bug in the MATLAB installer program): If no graphical interface appears, a text might still be printed suggesting that installation has "Finished". However, it might still **not** have succeded, unless the user has write access to the directory /usr. It also appears that the installer fails to display the graphical interface if a certain amount of time has passed after logging in to a remote computer using X forwarding. In this case, try again after reconnecting to the remote machine. 
 
-    **Note:** If the installer fails to start on Linux, try changing permissions by typing ```chmod 755 Installer_Linux.install```.
+   **Note:** On some Linux systems, the installer may have problems connecting to the MathWorks servers. This is sometimes resolved by just restarting the installation process.
 
 4. Setup environment variables (in the following, substitute path to focalscan for the directory where the files were downloaded (for instance, ∼/focalscan):
 
