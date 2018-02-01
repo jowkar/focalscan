@@ -268,35 +268,57 @@ classdef Expr < handle
         function [data,samples,gene_ids] = readcsv(fname)
             % The first line should countain sample names.
             
-            % Skip the first line and read the first column
             fid = fopen(fname,'r');
-            firstline = fgetl(fid); % textscan will read the remaining lines
+            firstline = fgetl(fid); % Skip the first line
             formatstr = '%s%*[^\n]'; % read only the first column
             firstcolumn = textscan(fid,formatstr,'Delimiter',',');
             fclose(fid);
             firstcolumn_double = str2double(firstcolumn{1}(1:end));
-            skipfirst = 0;
-            if ~isnumeric(firstcolumn_double) | any(isnan(firstcolumn_double))
+            has_gene_ids = 0;
+            if ~isnumeric(firstcolumn_double) || any(isnan(firstcolumn_double))
                 disp('The first column of the csv-file contained strings. Assuming that these are gene IDs.');
                 gene_ids = [firstcolumn{:}];
-                skipfirst = 1;
+                has_gene_ids = 1;
             else
                 gene_ids = [];
                 disp('The first column of the csv-file contained only numbers. Assuming that rows (genes) correspond exactly to rows in the annotation file.');
             end
             
+            % Check if the header line has the same number of elements as
+            % the second line
             fid = fopen(fname,'r');
-            firstline = fgetl(fid); % textscan will read the remaining lines
+            firstline = fgetl(fid);
+            secondline = fgetl(fid);
+            n_first = length(strsplit(firstline,','));
+            n_second = length(strsplit(secondline,','));
+            fclose(fid);
+            
+            fid = fopen(fname,'r');
+            firstline = fgetl(fid);
             samples = textscan(firstline,'%s','Delimiter',',');
-            samples = samples{1};
-            formatstring = repmat('%f',1,length(samples));
-            if skipfirst
-               formatstring = ['%*s' formatstring]; 
+            
+            if has_gene_ids
+                if n_second == n_first+1
+                    samples = samples{1}; % First row contains only sample IDs
+                elseif n_second == n_first
+                    samples = samples{1}(2:end); % First row begins with the name of the gene ID column, followed by samples IDs.
+                else
+                    error(fprintf('First line of expression CSV file contained %d elements, but the second line contained %d elements.\n',n_first,n_second))
+                end
+                
+            else
+                samples = samples{1};
             end
+            
+            formatstring = repmat('%f',1,length(samples));
+            
+            if has_gene_ids
+                formatstring = ['%*s' formatstring]; 
+            end
+            
             data = textscan(fid,formatstring,'Delimiter', ',', 'CollectOutput',true);
             data = single(data{1});
             fclose( fid );
-            
             samples = Expr.make_valid_var_names(samples);
         end
     end
