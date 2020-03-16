@@ -204,7 +204,7 @@ Mac/Linux, compiled executable (started by the script "focalscan", without ".sh"
 
     - https://drive.google.com/file/d/0B_52viSz8FLNX2lZVF9SOTFMQzg/view?usp=sharing
 
-6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute “MCR root” for the installation directory of the MATLAB compiler runtime (for instance /Applications/MATLAB/MATLAB_Runtime/v901, if that is were it was installed):
+6. Test the installation (gene-level analysis on breast cancer data from TCGA). In the following command, substitute the installation directory of the MATLAB compiler runtime for "MCR_path" (for instance /Applications/MATLAB/MATLAB_Runtime/v901, if that is were it was installed):
 
     ```shell
     focalscan MCR_path expr_csv example_data/BRCA_expr.csv seg_file example_data/BRCA.seg annot_file annotation/gencode17_symbols.bed reportdir reports
